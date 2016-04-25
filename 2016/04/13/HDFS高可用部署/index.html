@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>HDFS HA Deployment (With QJM) | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="运营管理平台HDFS高可用配置-实施版Overview目的以及方案目的为解决当前平台中NameNode为单点的问题. 方案如下: 
 
@@ -12,7 +12,7 @@
 
 系统逻辑结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HDFS HA Deployment (With QJM)">
+<meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://yoursite.com/2016/04/13/HDFS高可用部署/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="运营管理平台HDFS高可用配置-实施版Overview目的以及方案目的为解决当前平台中NameNode为单点的问题. 方案如下: 
@@ -22,9 +22,9 @@
 
 系统逻辑结构">
 <meta property="og:image" content="http://7xokux.com1.z0.glb.clouddn.com/hdfs_qjm_architecture.png">
-<meta property="og:updated_time" content="2016-04-13T11:56:25.850Z">
+<meta property="og:updated_time" content="2016-04-21T02:06:39.120Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HDFS HA Deployment (With QJM)">
+<meta name="twitter:title" content="Hexo">
 <meta name="twitter:description" content="运营管理平台HDFS高可用配置-实施版Overview目的以及方案目的为解决当前平台中NameNode为单点的问题. 方案如下: 
 
 通过QJM在集群中实现两个NameNode, 一个为Active, 一个Standby.Standby为Active的热备份. 则Active节点产生故障, 可以手动故障切换Standby为Active. 
@@ -83,22 +83,12 @@
         <section id="main"><article id="post-HDFS高可用部署" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/04/13/HDFS高可用部署/" class="article-date">
-  <time datetime="2016-04-13T14:21:25.000Z" itemprop="datePublished">2016-04-13</time>
+  <time datetime="2016-04-13T11:55:22.970Z" itemprop="datePublished">2016-04-13</time>
 </a>
     
   </div>
   <div class="article-inner">
     
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      HDFS HA Deployment (With QJM)
-    </h1>
-  
-
-      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -274,20 +264,28 @@ hadoop-daemon.sh start datanode
 <pre><code>kill xxxx 
 </code></pre><p>转到之前为Standby的NameNode UI, 此处为slave1. 状态变为Active, 则为自动切换成功. </p>
 <p><strong>在以后启动HDFS的过程中, 不需要每个进程单独启动. 依然可以使用<code>start-dfs.sh</code></strong></p>
+<p>mysql的索引<br><a href="http://blog.jobbole.com/24006/" target="_blank" rel="external">http://blog.jobbole.com/24006/</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/13/HDFS高可用部署/" data-id="cimysxx0a00008smxp8svf2fh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/13/HDFS高可用部署/" data-id="cinfoox0y0000ekmxr939vpu5" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HDFS/">HDFS</a></li></ul>
-
     </footer>
   </div>
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/04/25/eclipse/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
   
   
     <a href="/2016/04/13/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
@@ -311,7 +309,7 @@ hadoop-daemon.sh start datanode
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDFS/">HDFS</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Concurrent/">Java Concurrent</a></li></ul>
     </div>
   </div>
 
@@ -321,7 +319,7 @@ hadoop-daemon.sh start datanode
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/HDFS/" style="font-size: 10px;">HDFS</a>
+      <a href="/tags/Java-Concurrent/" style="font-size: 10px;">Java Concurrent</a>
     </div>
   </div>
 
@@ -343,11 +341,23 @@ hadoop-daemon.sh start datanode
       <ul>
         
           <li>
-            <a href="/2016/04/13/HDFS高可用部署/">HDFS HA Deployment (With QJM)</a>
+            <a href="/2016/04/25/修改Mysql密码/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2016/04/13/hello-world/">Hello World</a>
+            <a href="/2016/04/25/交接文档/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/25/包用途/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/25/Zookeeper+Kafka部署/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/25/spark提交/">(no title)</a>
           </li>
         
       </ul>

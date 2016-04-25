@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#mysql修改用户密码#一、原因：今天在尝试初始化一个WEB应用的时候，发现其连接不上MySQL，从Traceback看到使用的默认密码为‘YES’。没辙，居然尝试把MySQL的密码也改成’YES’，疯了…我是疯子。任意键在哪儿呢…
+USE mysqlUPDATE user SET password=’YES’ where user=’root’ AND host=’localhost’;FLU">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2016/04/25/修改Mysql密码/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#mysql修改用户密码#一、原因：今天在尝试初始化一个WEB应用的时候，发现其连接不上MySQL，从Traceback看到使用的默认密码为‘YES’。没辙，居然尝试把MySQL的密码也改成’YES’，疯了…我是疯子。任意键在哪儿呢…
+USE mysqlUPDATE user SET password=’YES’ where user=’root’ AND host=’localhost’;FLU">
+<meta property="og:updated_time" content="2016-04-21T06:16:20.593Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="#mysql修改用户密码#一、原因：今天在尝试初始化一个WEB应用的时候，发现其连接不上MySQL，从Traceback看到使用的默认密码为‘YES’。没辙，居然尝试把MySQL的密码也改成’YES’，疯了…我是疯子。任意键在哪儿呢…
+USE mysqlUPDATE user SET password=’YES’ where user=’root’ AND host=’localhost’;FLU">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-修改Mysql密码" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/25/修改Mysql密码/" class="article-date">
+  <time datetime="2016-04-25T07:07:49.752Z" itemprop="datePublished">2016-04-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#mysql修改用户密码#<br>一、原因：<br>今天在尝试初始化一个WEB应用的时候，发现其连接不上MySQL，从Traceback看到使用的默认密码为‘YES’。没辙，居然尝试把MySQL的密码也改成’YES’，疯了…我是疯子。任意键在哪儿呢…</p>
+<p>USE mysql<br>UPDATE user SET password=’YES’ where user=’root’ AND host=’localhost’;<br>FLUSH PRIVILEGES;<br>退出控制台后就再进不去了。<br>mysql -u root -p<br>mysql -h localhost -u root -p<br>都不行，出现错误：<br>“Host ‘localhost’ is not allowed to connect to this MySQL server.”</p>
+<p>二、方法<br>首先停止mysql服务：<br>sc stop mysql<br>然后：<br>mysqld –skip-grant-tables<br>另开一个终端，继续<br>mysqlcheck –check-upgrade –all-databases –auto-repair<br>然后再输入<br>mysql<br>就可以进入MySQL控制台了。这样进去以后使用SELECT语句会发现密码使用的是明文：’YES’，哈哈，我真是个疯子。</p>
+<p>三、问题<br>以上进去控制台后并不能执行账户维护工作。正确的方法为：<br>mysql -u root<br>然后使用以下语句将密码还原为 root 的 HASH 值：<br>UPDATE uesr SET password=PASSWORD(‘YES’) where user=’root’ AND host=’localhost’;<br>然后，mysqld –skip-grant-tables 这个命令似乎只可以在本地运行。</p>
+<p>如果mysql服务无法正常停止，使用命令：mysqladmin -u root shutdown </p>
+<p>##跟spark有关的是普通java-&gt;jar包。</p>
+<p>启动mysql 报错：</p>
+<p>ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock’ (2)</p>
+<p>1、先查看 /etc/rc.d/init.d/mysqld status 看看m y s q l 是否已经启动.<br>另外看看是不是权限问题.</p>
+<p>2、确定你的mysql.sock是不是在那个位置，<br>mysql -u 你的mysql用户名 -p -S /var/lib/mysql/mysql.sock</p>
+<p>3、试试：service mysqld start</p>
+<p>4、如果是权限问题，则先改变权限 #chown -R mysql:mysql /var/lib/mysql</p>
+<p>[root@localhost ~]# /etc/init.d/mysqld start<br>启动 MySQL： [ 确定 ]<br>[root@localhost ~]# mysql -uroot -p</p>
+<p>host is not allowed to connect的问题：</p>
+<p>grant all PRIVILEGES on test_db.* to root@’192.168.1.101’  identified by ‘123456’;</p>
+<p>上面的语句表示将 test_db 数据库的所有权限授权给 root 这个用户，允许 root 用户在 192.168.1.101 这个 IP 进行远程登陆，并设置 root 用户的密码为 123456 。</p>
+<p>下面逐一分析所有的参数：</p>
+<p>all PRIVILEGES 表示赋予所有的权限给指定用户，这里也可以替换为赋予某一具体的权限，例如select,insert,update,delete,create,drop 等，具体权限间用“,”半角逗号分隔。</p>
+<p>test_db.<em> 表示上面的权限是针对于哪个表的，test_db指的是数据库，后面的 </em> 表示对于所有的表，由此可以推理出：对于全部数据库的全部表授权为“<em>.</em>”，对于某一数据库的全部表授权为“数据库名.*”，对于某一数据库的某一表授权为“数据库名.表名”。</p>
+<p>root 表示你要给哪个用户授权，这个用户可以是存在的用户，也可以是不存在的用户。</p>
+<p>192.168.1.101   表示允许远程连接的 IP 地址，如果想不限制链接的 IP 则设置为“%”即可。</p>
+<p>123456 为用户的密码。</p>
+<p>如何开启MySQL的远程帐号-3)执行了上面的语句后，再执行下面的语句，方可立即生效。</p>
+<pre><code>&gt; flush privileges; 
+</code></pre><p>ACCESS denied for root@’localhost’:<br>首先停掉mysql服务器</p>
+<p>[root@DB-Server init.d]# /etc/rc.d/init.d/mysql stop<br>然后使用mysqld_safe命令在启动mysql，更新root账号的密码</p>
+<p>–skip-grant-tables：不启动grant-tables(授权表),跳过权限控制。</p>
+<p>–skip-networking ：跳过TCP/IP协议，只在本机访问(从网上有些资料看，这个选项不是必须的。可以不用)</p>
+<p>mysqld_safe –user=mysql –skip-grant-tables –skip-networking &amp;</p>
+<p>mysql -u root mysql</p>
+<p>mysql&gt; select Host, User, Password,password_expired<br>    -&gt; from user<br>    -&gt; where user=’root’ and host=’root’ or host=’localhost’;</p>
+<p>mysql&gt; update user set password=PASSWORD(‘p12#456’)<br>    -&gt; where user=’root’ and host=’root’ or host=’localhost’;</p>
+<p>flush privileges</p>
+<p>mysql -u root -p</p>
+<p>修改密码：<br>update user set password=password(‘123’) where user=’root’ and host=’localhost’; </p>
+<p>flush privileges；</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/25/修改Mysql密码/" data-id="cinfoox1y0005ekmxl57owfir" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/04/25/交接文档/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Concurrent/">Java Concurrent</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Java-Concurrent/" style="font-size: 10px;">Java Concurrent</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/04/25/修改Mysql密码/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/25/交接文档/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/25/包用途/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/25/Zookeeper+Kafka部署/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/25/spark提交/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
