@@ -5,19 +5,31 @@
   
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#mysql修改用户密码#一、原因：今天在尝试初始化一个WEB应用的时候，发现其连接不上MySQL，从Traceback看到使用的默认密码为‘YES’。没辙，居然尝试把MySQL的密码也改成’YES’，疯了…我是疯子。任意键在哪儿呢…
-USE mysqlUPDATE user SET password=’YES’ where user=’root’ AND host=’localhost’;FLU">
+  <meta name="description" content="Title:MySQL学习Date：2016-4-27Author：AlaricLiu
+#mysql修改用户密码#
+##问题1##
+“Host ‘localhost’ is not allowed to connect to this MySQL server.”
+
+###现象与产生原因###USE mysqlUPDATE user SET password=’YES’ where user=’r">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://yoursite.com/2016/04/25/修改Mysql密码/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="#mysql修改用户密码#一、原因：今天在尝试初始化一个WEB应用的时候，发现其连接不上MySQL，从Traceback看到使用的默认密码为‘YES’。没辙，居然尝试把MySQL的密码也改成’YES’，疯了…我是疯子。任意键在哪儿呢…
-USE mysqlUPDATE user SET password=’YES’ where user=’root’ AND host=’localhost’;FLU">
-<meta property="og:updated_time" content="2016-04-21T06:16:20.593Z">
+<meta property="og:description" content="Title:MySQL学习Date：2016-4-27Author：AlaricLiu
+#mysql修改用户密码#
+##问题1##
+“Host ‘localhost’ is not allowed to connect to this MySQL server.”
+
+###现象与产生原因###USE mysqlUPDATE user SET password=’YES’ where user=’r">
+<meta property="og:updated_time" content="2016-04-27T06:36:44.811Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
-<meta name="twitter:description" content="#mysql修改用户密码#一、原因：今天在尝试初始化一个WEB应用的时候，发现其连接不上MySQL，从Traceback看到使用的默认密码为‘YES’。没辙，居然尝试把MySQL的密码也改成’YES’，疯了…我是疯子。任意键在哪儿呢…
-USE mysqlUPDATE user SET password=’YES’ where user=’root’ AND host=’localhost’;FLU">
+<meta name="twitter:description" content="Title:MySQL学习Date：2016-4-27Author：AlaricLiu
+#mysql修改用户密码#
+##问题1##
+“Host ‘localhost’ is not allowed to connect to this MySQL server.”
+
+###现象与产生原因###USE mysqlUPDATE user SET password=’YES’ where user=’r">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -55,9 +67,9 @@ USE mysqlUPDATE user SET password=’YES’ where user=’root’ AND host=’lo
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -78,47 +90,106 @@ USE mysqlUPDATE user SET password=’YES’ where user=’root’ AND host=’lo
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#mysql修改用户密码#<br>一、原因：<br>今天在尝试初始化一个WEB应用的时候，发现其连接不上MySQL，从Traceback看到使用的默认密码为‘YES’。没辙，居然尝试把MySQL的密码也改成’YES’，疯了…我是疯子。任意键在哪儿呢…</p>
-<p>USE mysql<br>UPDATE user SET password=’YES’ where user=’root’ AND host=’localhost’;<br>FLUSH PRIVILEGES;<br>退出控制台后就再进不去了。<br>mysql -u root -p<br>mysql -h localhost -u root -p<br>都不行，出现错误：<br>“Host ‘localhost’ is not allowed to connect to this MySQL server.”</p>
-<p>二、方法<br>首先停止mysql服务：<br>sc stop mysql<br>然后：<br>mysqld –skip-grant-tables<br>另开一个终端，继续<br>mysqlcheck –check-upgrade –all-databases –auto-repair<br>然后再输入<br>mysql<br>就可以进入MySQL控制台了。这样进去以后使用SELECT语句会发现密码使用的是明文：’YES’，哈哈，我真是个疯子。</p>
-<p>三、问题<br>以上进去控制台后并不能执行账户维护工作。正确的方法为：<br>mysql -u root<br>然后使用以下语句将密码还原为 root 的 HASH 值：<br>UPDATE uesr SET password=PASSWORD(‘YES’) where user=’root’ AND host=’localhost’;<br>然后，mysqld –skip-grant-tables 这个命令似乎只可以在本地运行。</p>
-<p>如果mysql服务无法正常停止，使用命令：mysqladmin -u root shutdown </p>
-<p>##跟spark有关的是普通java-&gt;jar包。</p>
-<p>启动mysql 报错：</p>
-<p>ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock’ (2)</p>
-<p>1、先查看 /etc/rc.d/init.d/mysqld status 看看m y s q l 是否已经启动.<br>另外看看是不是权限问题.</p>
-<p>2、确定你的mysql.sock是不是在那个位置，<br>mysql -u 你的mysql用户名 -p -S /var/lib/mysql/mysql.sock</p>
-<p>3、试试：service mysqld start</p>
-<p>4、如果是权限问题，则先改变权限 #chown -R mysql:mysql /var/lib/mysql</p>
-<p>[root@localhost ~]# /etc/init.d/mysqld start<br>启动 MySQL： [ 确定 ]<br>[root@localhost ~]# mysql -uroot -p</p>
-<p>host is not allowed to connect的问题：</p>
-<p>grant all PRIVILEGES on test_db.* to root@’192.168.1.101’  identified by ‘123456’;</p>
-<p>上面的语句表示将 test_db 数据库的所有权限授权给 root 这个用户，允许 root 用户在 192.168.1.101 这个 IP 进行远程登陆，并设置 root 用户的密码为 123456 。</p>
-<p>下面逐一分析所有的参数：</p>
-<p>all PRIVILEGES 表示赋予所有的权限给指定用户，这里也可以替换为赋予某一具体的权限，例如select,insert,update,delete,create,drop 等，具体权限间用“,”半角逗号分隔。</p>
-<p>test_db.<em> 表示上面的权限是针对于哪个表的，test_db指的是数据库，后面的 </em> 表示对于所有的表，由此可以推理出：对于全部数据库的全部表授权为“<em>.</em>”，对于某一数据库的全部表授权为“数据库名.*”，对于某一数据库的某一表授权为“数据库名.表名”。</p>
-<p>root 表示你要给哪个用户授权，这个用户可以是存在的用户，也可以是不存在的用户。</p>
-<p>192.168.1.101   表示允许远程连接的 IP 地址，如果想不限制链接的 IP 则设置为“%”即可。</p>
-<p>123456 为用户的密码。</p>
-<p>如何开启MySQL的远程帐号-3)执行了上面的语句后，再执行下面的语句，方可立即生效。</p>
-<pre><code>&gt; flush privileges; 
-</code></pre><p>ACCESS denied for root@’localhost’:<br>首先停掉mysql服务器</p>
-<p>[root@DB-Server init.d]# /etc/rc.d/init.d/mysql stop<br>然后使用mysqld_safe命令在启动mysql，更新root账号的密码</p>
+        <p>Title:MySQL学习<br>Date：2016-4-27<br>Author：AlaricLiu</p>
+<p>#mysql修改用户密码#</p>
+<p>##问题1##</p>
+<font color="red">“Host ‘localhost’ is not allowed to connect to this MySQL server.”</font>
+
+<p>###现象与产生原因###<br>USE mysql<br>UPDATE user SET password=’YES’ where user=’root’ AND host=’localhost’;<br>FLUSH PRIVILEGES;</p>
+<font color="red">SET password=’YES’，是个梗。以后要用set password=PASSWORD(‘YES’);</font>
+
+<p>退出控制台后就再进不去了。<br>mysql -u root -p<br>mysql -h localhost -u root -p<br>都不行，出现错误：<br>“Host ‘localhost’ is not allowed to connect to this MySQL server.”</p>
+<p>###方法###<br>首先停止mysql服务：</p>
+<pre><code>service stop mysqld
+</code></pre><p>然后：</p>
+<pre><code>mysqld --skip-grant-tables
+</code></pre><p>另开一个终端，继续</p>
+<pre><code>mysqlcheck --check-upgrade --all-databases --auto-repair
+</code></pre><p>然后再输入</p>
+<pre><code>mysql
+</code></pre><p>就可以进入MySQL控制台了。mysql库中user表的密码为YES，正常来讲应该是密文。</p>
+<table><br><tr><br><td>HOST</td><br><td>USER</td><br><td>PWD</td><br></tr><br><tr><br><td>localhost</td><br><td>root</td><br><td>YES</td><br></tr><br></table>
+
+<p>进入库</p>
+<pre><code>mysql -u root
+</code></pre><p>将密码还原为 root 的 HASH 值：</p>
+<pre><code>UPDATE uesr SET password=PASSWORD(&apos;YES&apos;) where user=&apos;root&apos; AND host=&apos;localhost&apos;;
+</code></pre><p>重启mysqld服务。</p>
+<p>如果mysql服务无法正常停止，使用命令：</p>
+<p><code>mysqladmin -u root shutdown</code> </p>
+<p>##问题2##<br>启动mysql 报错：</p>
+<pre><code>ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock’ (2)
+</code></pre><p>1、先查看 <code>/etc/rc.d/init.d/mysqld status</code> 看看mysqld是否已经启动.<br>另外看看是不是权限问题.</p>
+<p>2、确定你的mysql.sock是不是在那个位置，</p>
+<pre><code>mysql -u 你的mysql用户名 -p -S /var/lib/mysql/mysql.sock
+</code></pre><p>3、试试：</p>
+<p><code>service mysqld start</code></p>
+<p>4、如果是权限问题，则先改变权限</p>
+<pre><code>`#chown -R mysql:mysql /var/lib/mysql`
+
+[root@localhost ~]# /etc/init.d/mysqld start
+启动 MySQL： [ 确定 ]
+[root@localhost ~]# mysql -uroot -p
+</code></pre><p>##问题3##</p>
+<font color="red">host is not allowed to connect的问题</font>
+
+<pre><code>grant all PRIVILEGES on *.* to root@&apos;192.168.1.101&apos;  identified by &apos;YES&apos;;
+flush privileges; 
+</code></pre><p>上面的语句表示将 所有 数据库的所有权限授权给 root 这个用户，允许 root 用户在 192.168.1.101 这个 IP 进行远程登陆，并设置 root 用户的密码为 YES 。</p>
+<p>##问题4##</p>
+<font color="red">ACCESS denied for root@’localhost’</font>
+
+<p>首先停掉mysql服务器</p>
+<pre><code>[root@DB-Server init.d]# /etc/rc.d/init.d/mysql stop
+</code></pre><p>然后使用mysqld_safe命令在启动mysql，更新root账号的密码</p>
 <p>–skip-grant-tables：不启动grant-tables(授权表),跳过权限控制。</p>
 <p>–skip-networking ：跳过TCP/IP协议，只在本机访问(从网上有些资料看，这个选项不是必须的。可以不用)</p>
-<p>mysqld_safe –user=mysql –skip-grant-tables –skip-networking &amp;</p>
-<p>mysql -u root mysql</p>
-<p>mysql&gt; select Host, User, Password,password_expired<br>    -&gt; from user<br>    -&gt; where user=’root’ and host=’root’ or host=’localhost’;</p>
-<p>mysql&gt; update user set password=PASSWORD(‘p12#456’)<br>    -&gt; where user=’root’ and host=’root’ or host=’localhost’;</p>
-<p>flush privileges</p>
-<p>mysql -u root -p</p>
-<p>修改密码：<br>update user set password=password(‘123’) where user=’root’ and host=’localhost’; </p>
-<p>flush privileges；</p>
+<pre><code>mysqld_safe --user=mysql --skip-grant-tables --skip-networking &amp;
+
+mysql -u root mysql
+
+mysql&gt; select Host, User, Password,password_expired
+-&gt; from user
+-&gt; where user=&apos;root&apos; and host=&apos;root&apos; or host=&apos;localhost&apos;;
+
+mysql&gt; update user set password=PASSWORD(&apos;YES&apos;)
+-&gt; where user=&apos;root&apos; and host=&apos;root&apos; or host=&apos;localhost&apos;;
+
+flush privileges
+
+mysql -u root -p
+</code></pre><p>##mysql使用##</p>
+<p>###1.新建用户###<br>    //登录MYSQL<br>    @&gt;mysql -u root -p<br>    @&gt;密码<br>    //创建用户<br>    mysql&gt; insert into mysql.user(Host,User,Password) values(“localhost”,”phplamp”,password(“1234”));<br>    //刷新系统权限表<br>    mysql&gt;flush privileges;<br>这样就创建了一个名为：phplamp  密码为：1234  的用户。</p>
+<p>然后登录一下。</p>
+<pre><code>mysql&gt;exit;
+@&gt;mysql -u phplamp -p
+@&gt;输入密码
+mysql&gt;登录成功
+</code></pre><p>###2.为用户授权。###</p>
+<pre><code>//登录MYSQL（有ROOT权限）。我里我以ROOT身份登录.
+@&gt;mysql -u root -p
+@&gt;密码
+//首先为用户创建一个数据库(phplampDB)
+mysql&gt;create database phplampDB;
+//授权phplamp用户拥有phplamp数据库的所有权限。
+&gt;grant all privileges on phplampDB.* to phplamp@localhost identified by &apos;1234&apos;;
+//刷新系统权限表
+mysql&gt;flush privileges;
+mysql&gt;其它操作
+
+/*
+如果想指定部分权限给一用户，可以这样来写:
+mysql&gt;grant select,update on phplampDB.* to phplamp@localhost identified by &apos;1234&apos;;
+//刷新系统权限表。
+mysql&gt;flush privileges;
+*/
+</code></pre><p>###3.删除用户。###<br>    @&gt;mysql -u root -p<br>    @&gt;密码<br>    mysql&gt;DELETE FROM user WHERE User=”phplamp” and Host=”localhost”;<br>    mysql&gt;flush privileges;<br>    //删除用户的数据库<br>    mysql&gt;drop database phplampDB;</p>
+<p>###4.修改指定用户密码。###<br>    @&gt;mysql -u root -p<br>    @&gt;密码<br>    mysql&gt;update mysql.user set password=password(‘新密码’) where User=”phplamp” and Host=”localhost”;<br>    mysql&gt;flush privileges; </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/25/修改Mysql密码/" data-id="cinfoox1y0005ekmxl57owfir" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/25/修改Mysql密码/" data-id="cinily4bd0003bcmx4bllrbk2" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -127,9 +198,18 @@ USE mysqlUPDATE user SET password=’YES’ where user=’root’ AND host=’lo
     
 <nav id="article-nav">
   
+    <a href="/2016/04/27/c++从入门到崩溃/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
   
     <a href="/2016/04/25/交接文档/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">Ancien</strong>
       <div class="article-nav-title"></div>
     </a>
   
@@ -147,7 +227,7 @@ USE mysqlUPDATE user SET password=’YES’ where user=’root’ AND host=’lo
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Concurrent/">Java Concurrent</a></li></ul>
     </div>
@@ -157,7 +237,7 @@ USE mysqlUPDATE user SET password=’YES’ where user=’root’ AND host=’lo
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
       <a href="/tags/Java-Concurrent/" style="font-size: 10px;">Java Concurrent</a>
     </div>
@@ -176,9 +256,13 @@ USE mysqlUPDATE user SET password=’YES’ where user=’root’ AND host=’lo
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/04/27/c++从入门到崩溃/">(no title)</a>
+          </li>
         
           <li>
             <a href="/2016/04/25/修改Mysql密码/">(no title)</a>
@@ -196,10 +280,6 @@ USE mysqlUPDATE user SET password=’YES’ where user=’root’ AND host=’lo
             <a href="/2016/04/25/Zookeeper+Kafka部署/">(no title)</a>
           </li>
         
-          <li>
-            <a href="/2016/04/25/spark提交/">(no title)</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -213,7 +293,7 @@ USE mysqlUPDATE user SET password=’YES’ where user=’root’ AND host=’lo
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

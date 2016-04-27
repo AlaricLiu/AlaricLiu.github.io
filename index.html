@@ -51,9 +51,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -63,6 +63,285 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-c++从入门到崩溃" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/27/c++从入门到崩溃/" class="article-date">
+  <time datetime="2016-04-27T06:40:46.260Z" itemprop="datePublished">2016-04-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>title: C++从入门到崩溃<br>date: 2016-4-27 17:11:54<br>categories: default<br>tags: C++<br>description: C++学习笔记</p>
+<p>#C++从入门到崩溃#</p>
+<p>##1，时间##</p>
+<pre><code>#include &lt;time.h&gt; 
+#include &lt;sys/timeb.h&gt;
+
+struct _timeb putGetBegin,putGetEnd;
+float putGetTotal;
+_ftime(&amp;putGetBegin);
+_ftime(&amp;putGetEnd);
+putGetTotal = (float)( putGetEnd.time-putGetBegin.time )*1000 + (putGetEnd.millitm-putGetBegin.millitm );
+</code></pre><p>##IOCP##<br>    enum IO_OPERATION<br>    {<br>        RECV,<br>        SEND<br>    }//标示类型是收还是发<br>自定义参数结构</p>
+<pre><code>struct context
+{
+    WSAOVERLAPPED    Overlapped;
+    IO_OPERATION    IOOperation;
+    char            rBuf[MAX_RECV_SIZE];// 接收到的数据缓冲区
+    WSABUF            wsabuf;//收的数据
+}
+struct connSt{
+    context stContext;
+    int index;
+    ...
+}
+g_IOCmp = CreateIoCompletionPort(INVALIDHANDLE,NULL,NULL,NULL);
+//将socket加入到完成端口
+CreateIoCompletionPort(socket,g_IOCmp,&amp;connSt,threadNum);
+//第一个为要加入完成端口的socket
+//第二个为要加入的完成端口
+//第三个为用户自定义的参数
+//第四个为线程数，有多少个线程数就需要创建多少个接收线程。
+
+connSt conn;
+DWORD flags;
+conn.stContext.IOOperation = RECV;
+conn.stContext.wsabuf.buf = conn.stContext.rBuf;
+conn.stContext.wsabuf.len = MAX_RECV_SIZE;
+
+//投递一个recv请求,在前面的代码设置IOOPeration类型，请求收的字节数，请求收的buf放到哪里
+wsarecv(socket,conn.stContext.wsabuf.buf,1,&amp;recvbytes,flags,&amp;conn.stContext.overlapped,NULL);
+
+//////另一个线程做的事情：
+GetQueuedCompletionStatus((g_IOCmp, &amp;dwIoSize, (LPDWORD)&amp;lpConnSlot, &amp;lpOverlapped, INFINITE))
+//第一个，完成端口
+//第二个，实际接收到的大小
+//第三个，得到在CreateIOCompletePort是绑定的自定义参数指针
+//第四个，重叠结构
+//第五个，等待时间
+
+if(lpConnSlot == NULL)
+{break;}
+if(iRet ==0)||(iRet!=0 &amp;&amp; dwIoSize ==0)
+{有关闭}
+//判断IOOperation的类型（是接收，发送）
+//如果是发送，
+  从lpConnSlot.context.wsabuf.buf中取dwIoSize大小的数据
+  投递新的请求
+</code></pre><p>IOCP的原理其实还是在通过重叠结构lpOverlapped来找到其母结构体。</p>
+<font color="red"><br><br>    #define CONTAINING_RECORD(address, type, field) ((type <em>)( (PCHAR)(address) - (ULONG_PTR)(&amp;((type</em>)0)-&gt;field)))<br><br>    pSocketSlot = CONTAINING_RECORD(lpOverlapped, IOCP_SOCKET_SLOT, stOverlapped);<br></font>
+
+<p>宏的展开</p>
+<pre><code>((IOCP_SOCKET_SLOT *)( (PCHAR)(lpOverlapped) - (ULONG_PTR)(&amp;((IOCP_SOCKET_SLOT*)0)-&gt;stOverlapped)))
+</code></pre><p>(ULONG_PTR)(&amp;((IOCP_SOCKET_SLOT*)0)-&gt;stOverlapped))<br>表示stOverlapped相对于结构体IOCP_SOCKET_SLOT来说，偏移了多少个位置</p>
+<p>而(PCHAR)lpOverlapped 的加减操作实际为指针的移位操作。<br>总的来讲就是将lpOverlapped左移位偏移量到结构体的首地址。再指针强转。</p>
+<p>##STL方便编程的方式##</p>
+<pre><code>typedef vector&lt;string&gt; VecStr 
+</code></pre><p>以后定义一个string类型的VecStr时，直接VecStr就行了，省了很多。</p>
+<p>##动态加载##</p>
+<pre><code>LoadLibrary(“xxx.dll”)
+
+typedef int ( *func)(para);
+func Testfunc;
+Testfunc = GetProcAddress(HINSTAHCE xxx, &quot;apiname&quot;);
+
+FreeLibrary()
+当出现错误时，要在typedef int中加函数类型：__stdcall __cdecl
+</code></pre><p>linux 下的api为：</p>
+<pre><code>#include &lt;dlfcn.h&gt;
+
+   void *dlopen( const char *file, int mode );
+
+//有了 ELF 对象的句柄，就可以通过调用 dlsym 来识别这个对象内的符号的地址了。该函数采用一个符号名称，如对象内的一个函数的名称。返回值为对象符号的解析地址：
+void *dlsym( void *restrict handle, const char *restrict name );
+
+//如果调用该 API 时发生了错误，可以使用 dlerror 函数返回一个表示此错误的人类可读的字符串。该函数没有参数，它会在发生前面的错误时返回一个字符串，在没有错误发生时返回 NULL：
+char *dlerror();
+
+//最后，如果无需再调用共享对象的话，应用程序可以调用 dlclose 来通知操作系统不再需要句柄和对象引用了。它完全是按引用来计数的，所以同一个共享对象的多个用户相互间不会发生冲突（只要还有一个用户在使用它，它就会待在内存中）。任何通过已关闭的对象的 dlsym 解析的符号都将不再可用。
+char *dlclose( void *handle );
+</code></pre><p>##防止头文件重复被包含##</p>
+<pre><code>#ifndef _HELLOWORLD_H
+#define _HELLOWORLD_H
+
+//头文件内容。。。
+
+#endif
+</code></pre><p>##vs2010未能找到符号“FUNC_1”的定义解决方法##</p>
+<p>关闭工程，删除工程对应的sdf文件，再重新打开工程。</p>
+<p>##线程更新主窗口控件数据的方法##</p>
+<p>主窗口实现Message日志的接口。自定义的MessageID。</p>
+<p>1，定义消息类型： </p>
+<pre><code>`#define WM_MESSAGE_MYDEBUG (WM_USER+122)`
+</code></pre><p>2，定义消息处理函数：</p>
+<p>   <code>afx_msg LRESULT onErrMessage(WPARAM wPapam, LPARAM lPapam);</code></p>
+<p>3，添加到消息map中</p>
+<p>   <code>ON_MESSAGE(WM_MY_ERR_MESSAGE,&amp;CApiTest_01Dlg::onErrMessage)</code></p>
+<p>4，实现onErrMessage</p>
+<pre><code>   LRESULT CApiTest_01Dlg::onErrMessage(WPARAM wParam,LPARAM lParam) //WPARAM是一个UNIT_PTR的指针
+{
+    char* newMsg = (char*)wParam;
+}
+</code></pre><p>5，线程函数：</p>
+<pre><code>   UINT threadFunc_1(LPVOID pParam)
+{
+    HWND hHwnd = (HWND)pParam;// 窗口参数
+
+    char *str = &quot;feafe&quot;;
+
+    ::PostMessage(hHwnd, WM_MY_DEBUG_MESSAGE, (WPARAM)str, NULL);
+    return 1;
+}
+</code></pre><p>6，MFC调用线程：</p>
+<pre><code>HWND hHwnd = GetSafeHwnd();//将hHwnd作为线程参数传递。
+
+ HANDLE hThread;
+ DWORD dwThreadId;
+
+
+ hThread = ::CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)threadFunc_1, (LPVOID)hHwnd, 0, &amp;dwThreadId);
+</code></pre><p>##类成员与线程##<br>使用类成员函数创建thread 篇：</p>
+<p>比较好的方法。可以抽象出C++的类似于Java的线程模型</p>
+<pre><code>class Thread
+{
+private:
+    int x;
+    public:
+    virtual int worker();
+    static void run(Thread * pthis); // 静态成员函数
+    void createThread()
+       {
+        pthread_create(threadid, NULL, &amp;Thread::run, this);
+    }
+};
+</code></pre><p>原理：将this作为参数传递。</p>
+<pre><code>pthread_create(threadid, run, this);
+</code></pre><p>在线程中再强转回来。</p>
+<p>##this指针##<br>（1）this只能在成员函数中使用。<br>全局函数、静态函数都不能使用this.<br>实际上，成员函数默认第一个参数为<code>T * const this。</code><br>如：</p>
+<pre><code>class A
+{
+ public:
+    int func(int p)
+    {
+    }
+};
+</code></pre><p>其中，func的原型在编译器看来应该是：</p>
+<p>  <code>int func(A * const this,int p);</code></p>
+<p>（2）由此可见，this在成员函数的开始前构造，在成员函数的结束后清除。<br>这个生命周期同任何一个函数的参数是一样的，没有任何区别。<br>当调用一个类的成员函数时，编译器将类的指针作为函数的this参数传递进去。如：</p>
+<pre><code>A a;
+a.func(10);
+此处，编译器将会编译成：
+A::func(&amp;a,10);
+</code></pre><p>看起来和静态函数没差别，对吗？不过，区别还是有的。编译器通常会对this指针做一些优化，因此，this指针的传递效率比较高–如VC通常是通过ecx寄存器传递this参数的。</p>
+<p>##编译器优化##</p>
+<font color="red">volatile 关键字</font>
+
+<p>volatile:(嵌入式程序员必须掌握的)volatile最初的意思是表示汽油容易挥发,在c中的作用大概有两点</p>
+<ul>
+<li>表示变量是易失的,易变的. </li>
+<li>强制访存操作,防止编译器去优化,告诉编译器每次必须去内存中取值,而不是从寄存器或者缓存.</li>
+</ul>
+<p>应用场景：</p>
+<font color="red">asm (“memoryBarrier”);</font>
+
+<p>内存屏障，防止cpu乱序。在单例时需要使用到</p>
+<pre><code>Singleton* Singleton::instance() {
+if (pInstance == 0) {
+Lock lock;
+if (pInstance == 0) {
+pInstance = // Step 3
+operator new(sizeof(Singleton)); // Step 1
+new (pInstance) Singleton; // Step 2
+}
+}
+return pInstance;
+}
+</code></pre><p>##dll库##<br>如何创建动态库dll函数的编写，有两种方法：<br>使用.def文件：</p>
+<pre><code>LIBRARY  &quot;kcxpapi&quot;
+DESCRIPTION  &apos;KCXPAPI Windows Dynamic Link Library&apos;
+
+EXPORTS
+; Explicit exports can go here
+
+KCXP_Close ：函数名
+</code></pre><p>或者：</p>
+<pre><code>#ifdef _KRDP_EXPORTS
+#define KRDP_API __declspec(dllexport)
+#else
+#define KRDP_API __declspec(dllimport)
+#endif
+
+KRDP_API KCXP_Close
+</code></pre><p>##c++类的内存结构，类大小##</p>
+<ul>
+<li><p>空的类是会占用内存空间的，而且大小是1，原因是C++要求每个实例在内存中都有独一无二的地址。</p>
+</li>
+<li><p>类内部的成员变量：<br>普通的变量：是要占用内存的，但是要注意对齐原则（这点和struct类型很相似）。<br>static修饰的静态变量：不占用内容，原因是编译器将其放在全局变量区。 </p>
+</li>
+<li>类内部的成员函数：<br>普通函数：不占用内存。<br>虚函数：要占用4个字节，用来指定虚函数的虚拟函数表的入口地址。所以一个类的虚函数所占用的地址是不变的，和虚函数的个数是没有关系的。</li>
+</ul>
+<p>##c++可变参数##</p>
+<pre><code>c/c++可变参数
+func(char *fmt,...)
+{
+    va_list arg;
+    va_start(arg,fmt);
+    _vsnprintf(buf,len,fmt,arg);
+    va_ent(arg);
+}
+</code></pre><p>##c++ callback##<br>    /////////call_back//////////////////<br>    typedef void (*call_back)(int i,int j,int k);</p>
+<pre><code>call_back CALL = NULL;
+
+int func(call_back CALLf)
+{
+    CALL = CALLf;
+    CALL(1,2,3);
+}
+</code></pre><p>函数指针的运用。</p>
+<p>##命令行设置代理##<br>设置代理：</p>
+<p><code>set HTTP_Proxy = xxxxxxx:8000</code></p>
+<p>##c++ extern##<br>c++与c语言混合编程问题的解决</p>
+<pre><code>#ifndef _HEADER_
+#define _HEADER_
+
+#ifdef __cplusplus
+extern &quot;C&quot;{
+#endif    
+
+/*函数体*/
+
+#ifdef __cplusplus
+}
+#endif
+
+
+#endif 
+</code></pre><p>但extern “C” 永远只能在cpp引用时出现，c引用时不允许存在。原因：C++编译会有修饰符：@1，@2这些。而在C中是没有的。</p>
+<p>##模板##</p>
+<p>###函数指针，自定义函数。###<br>    template <class t="" ,typename="" type1,typename="" type2=""><br>    void notify(T a,Type1 1,Type2 2)<br>    {<br>        (a-&gt;1)(2);//实现函数的调用。<br>    }</class></p>
+<p>##查看导出函数##</p>
+<p>windows：</p>
+<pre><code>dumpbin /exports XXX.lib 查看lib文件下的导出函数
+</code></pre><p>linux:</p>
+<pre><code>nm -D mylib.so
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/27/c++从入门到崩溃/" data-id="cinily4at0000bcmx204kj6eh" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-修改Mysql密码" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -76,47 +355,106 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#mysql修改用户密码#<br>一、原因：<br>今天在尝试初始化一个WEB应用的时候，发现其连接不上MySQL，从Traceback看到使用的默认密码为‘YES’。没辙，居然尝试把MySQL的密码也改成’YES’，疯了…我是疯子。任意键在哪儿呢…</p>
-<p>USE mysql<br>UPDATE user SET password=’YES’ where user=’root’ AND host=’localhost’;<br>FLUSH PRIVILEGES;<br>退出控制台后就再进不去了。<br>mysql -u root -p<br>mysql -h localhost -u root -p<br>都不行，出现错误：<br>“Host ‘localhost’ is not allowed to connect to this MySQL server.”</p>
-<p>二、方法<br>首先停止mysql服务：<br>sc stop mysql<br>然后：<br>mysqld –skip-grant-tables<br>另开一个终端，继续<br>mysqlcheck –check-upgrade –all-databases –auto-repair<br>然后再输入<br>mysql<br>就可以进入MySQL控制台了。这样进去以后使用SELECT语句会发现密码使用的是明文：’YES’，哈哈，我真是个疯子。</p>
-<p>三、问题<br>以上进去控制台后并不能执行账户维护工作。正确的方法为：<br>mysql -u root<br>然后使用以下语句将密码还原为 root 的 HASH 值：<br>UPDATE uesr SET password=PASSWORD(‘YES’) where user=’root’ AND host=’localhost’;<br>然后，mysqld –skip-grant-tables 这个命令似乎只可以在本地运行。</p>
-<p>如果mysql服务无法正常停止，使用命令：mysqladmin -u root shutdown </p>
-<p>##跟spark有关的是普通java-&gt;jar包。</p>
-<p>启动mysql 报错：</p>
-<p>ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock’ (2)</p>
-<p>1、先查看 /etc/rc.d/init.d/mysqld status 看看m y s q l 是否已经启动.<br>另外看看是不是权限问题.</p>
-<p>2、确定你的mysql.sock是不是在那个位置，<br>mysql -u 你的mysql用户名 -p -S /var/lib/mysql/mysql.sock</p>
-<p>3、试试：service mysqld start</p>
-<p>4、如果是权限问题，则先改变权限 #chown -R mysql:mysql /var/lib/mysql</p>
-<p>[root@localhost ~]# /etc/init.d/mysqld start<br>启动 MySQL： [ 确定 ]<br>[root@localhost ~]# mysql -uroot -p</p>
-<p>host is not allowed to connect的问题：</p>
-<p>grant all PRIVILEGES on test_db.* to root@’192.168.1.101’  identified by ‘123456’;</p>
-<p>上面的语句表示将 test_db 数据库的所有权限授权给 root 这个用户，允许 root 用户在 192.168.1.101 这个 IP 进行远程登陆，并设置 root 用户的密码为 123456 。</p>
-<p>下面逐一分析所有的参数：</p>
-<p>all PRIVILEGES 表示赋予所有的权限给指定用户，这里也可以替换为赋予某一具体的权限，例如select,insert,update,delete,create,drop 等，具体权限间用“,”半角逗号分隔。</p>
-<p>test_db.<em> 表示上面的权限是针对于哪个表的，test_db指的是数据库，后面的 </em> 表示对于所有的表，由此可以推理出：对于全部数据库的全部表授权为“<em>.</em>”，对于某一数据库的全部表授权为“数据库名.*”，对于某一数据库的某一表授权为“数据库名.表名”。</p>
-<p>root 表示你要给哪个用户授权，这个用户可以是存在的用户，也可以是不存在的用户。</p>
-<p>192.168.1.101   表示允许远程连接的 IP 地址，如果想不限制链接的 IP 则设置为“%”即可。</p>
-<p>123456 为用户的密码。</p>
-<p>如何开启MySQL的远程帐号-3)执行了上面的语句后，再执行下面的语句，方可立即生效。</p>
-<pre><code>&gt; flush privileges; 
-</code></pre><p>ACCESS denied for root@’localhost’:<br>首先停掉mysql服务器</p>
-<p>[root@DB-Server init.d]# /etc/rc.d/init.d/mysql stop<br>然后使用mysqld_safe命令在启动mysql，更新root账号的密码</p>
+        <p>Title:MySQL学习<br>Date：2016-4-27<br>Author：AlaricLiu</p>
+<p>#mysql修改用户密码#</p>
+<p>##问题1##</p>
+<font color="red">“Host ‘localhost’ is not allowed to connect to this MySQL server.”</font>
+
+<p>###现象与产生原因###<br>USE mysql<br>UPDATE user SET password=’YES’ where user=’root’ AND host=’localhost’;<br>FLUSH PRIVILEGES;</p>
+<font color="red">SET password=’YES’，是个梗。以后要用set password=PASSWORD(‘YES’);</font>
+
+<p>退出控制台后就再进不去了。<br>mysql -u root -p<br>mysql -h localhost -u root -p<br>都不行，出现错误：<br>“Host ‘localhost’ is not allowed to connect to this MySQL server.”</p>
+<p>###方法###<br>首先停止mysql服务：</p>
+<pre><code>service stop mysqld
+</code></pre><p>然后：</p>
+<pre><code>mysqld --skip-grant-tables
+</code></pre><p>另开一个终端，继续</p>
+<pre><code>mysqlcheck --check-upgrade --all-databases --auto-repair
+</code></pre><p>然后再输入</p>
+<pre><code>mysql
+</code></pre><p>就可以进入MySQL控制台了。mysql库中user表的密码为YES，正常来讲应该是密文。</p>
+<table><br><tr><br><td>HOST</td><br><td>USER</td><br><td>PWD</td><br></tr><br><tr><br><td>localhost</td><br><td>root</td><br><td>YES</td><br></tr><br></table>
+
+<p>进入库</p>
+<pre><code>mysql -u root
+</code></pre><p>将密码还原为 root 的 HASH 值：</p>
+<pre><code>UPDATE uesr SET password=PASSWORD(&apos;YES&apos;) where user=&apos;root&apos; AND host=&apos;localhost&apos;;
+</code></pre><p>重启mysqld服务。</p>
+<p>如果mysql服务无法正常停止，使用命令：</p>
+<p><code>mysqladmin -u root shutdown</code> </p>
+<p>##问题2##<br>启动mysql 报错：</p>
+<pre><code>ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock’ (2)
+</code></pre><p>1、先查看 <code>/etc/rc.d/init.d/mysqld status</code> 看看mysqld是否已经启动.<br>另外看看是不是权限问题.</p>
+<p>2、确定你的mysql.sock是不是在那个位置，</p>
+<pre><code>mysql -u 你的mysql用户名 -p -S /var/lib/mysql/mysql.sock
+</code></pre><p>3、试试：</p>
+<p><code>service mysqld start</code></p>
+<p>4、如果是权限问题，则先改变权限</p>
+<pre><code>`#chown -R mysql:mysql /var/lib/mysql`
+
+[root@localhost ~]# /etc/init.d/mysqld start
+启动 MySQL： [ 确定 ]
+[root@localhost ~]# mysql -uroot -p
+</code></pre><p>##问题3##</p>
+<font color="red">host is not allowed to connect的问题</font>
+
+<pre><code>grant all PRIVILEGES on *.* to root@&apos;192.168.1.101&apos;  identified by &apos;YES&apos;;
+flush privileges; 
+</code></pre><p>上面的语句表示将 所有 数据库的所有权限授权给 root 这个用户，允许 root 用户在 192.168.1.101 这个 IP 进行远程登陆，并设置 root 用户的密码为 YES 。</p>
+<p>##问题4##</p>
+<font color="red">ACCESS denied for root@’localhost’</font>
+
+<p>首先停掉mysql服务器</p>
+<pre><code>[root@DB-Server init.d]# /etc/rc.d/init.d/mysql stop
+</code></pre><p>然后使用mysqld_safe命令在启动mysql，更新root账号的密码</p>
 <p>–skip-grant-tables：不启动grant-tables(授权表),跳过权限控制。</p>
 <p>–skip-networking ：跳过TCP/IP协议，只在本机访问(从网上有些资料看，这个选项不是必须的。可以不用)</p>
-<p>mysqld_safe –user=mysql –skip-grant-tables –skip-networking &amp;</p>
-<p>mysql -u root mysql</p>
-<p>mysql&gt; select Host, User, Password,password_expired<br>    -&gt; from user<br>    -&gt; where user=’root’ and host=’root’ or host=’localhost’;</p>
-<p>mysql&gt; update user set password=PASSWORD(‘p12#456’)<br>    -&gt; where user=’root’ and host=’root’ or host=’localhost’;</p>
-<p>flush privileges</p>
-<p>mysql -u root -p</p>
-<p>修改密码：<br>update user set password=password(‘123’) where user=’root’ and host=’localhost’; </p>
-<p>flush privileges；</p>
+<pre><code>mysqld_safe --user=mysql --skip-grant-tables --skip-networking &amp;
+
+mysql -u root mysql
+
+mysql&gt; select Host, User, Password,password_expired
+-&gt; from user
+-&gt; where user=&apos;root&apos; and host=&apos;root&apos; or host=&apos;localhost&apos;;
+
+mysql&gt; update user set password=PASSWORD(&apos;YES&apos;)
+-&gt; where user=&apos;root&apos; and host=&apos;root&apos; or host=&apos;localhost&apos;;
+
+flush privileges
+
+mysql -u root -p
+</code></pre><p>##mysql使用##</p>
+<p>###1.新建用户###<br>    //登录MYSQL<br>    @&gt;mysql -u root -p<br>    @&gt;密码<br>    //创建用户<br>    mysql&gt; insert into mysql.user(Host,User,Password) values(“localhost”,”phplamp”,password(“1234”));<br>    //刷新系统权限表<br>    mysql&gt;flush privileges;<br>这样就创建了一个名为：phplamp  密码为：1234  的用户。</p>
+<p>然后登录一下。</p>
+<pre><code>mysql&gt;exit;
+@&gt;mysql -u phplamp -p
+@&gt;输入密码
+mysql&gt;登录成功
+</code></pre><p>###2.为用户授权。###</p>
+<pre><code>//登录MYSQL（有ROOT权限）。我里我以ROOT身份登录.
+@&gt;mysql -u root -p
+@&gt;密码
+//首先为用户创建一个数据库(phplampDB)
+mysql&gt;create database phplampDB;
+//授权phplamp用户拥有phplamp数据库的所有权限。
+&gt;grant all privileges on phplampDB.* to phplamp@localhost identified by &apos;1234&apos;;
+//刷新系统权限表
+mysql&gt;flush privileges;
+mysql&gt;其它操作
+
+/*
+如果想指定部分权限给一用户，可以这样来写:
+mysql&gt;grant select,update on phplampDB.* to phplamp@localhost identified by &apos;1234&apos;;
+//刷新系统权限表。
+mysql&gt;flush privileges;
+*/
+</code></pre><p>###3.删除用户。###<br>    @&gt;mysql -u root -p<br>    @&gt;密码<br>    mysql&gt;DELETE FROM user WHERE User=”phplamp” and Host=”localhost”;<br>    mysql&gt;flush privileges;<br>    //删除用户的数据库<br>    mysql&gt;drop database phplampDB;</p>
+<p>###4.修改指定用户密码。###<br>    @&gt;mysql -u root -p<br>    @&gt;密码<br>    mysql&gt;update mysql.user set password=password(‘新密码’) where User=”phplamp” and Host=”localhost”;<br>    mysql&gt;flush privileges; </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/25/修改Mysql密码/" data-id="cinfoox1y0005ekmxl57owfir" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/25/修改Mysql密码/" data-id="cinily4bd0003bcmx4bllrbk2" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -177,7 +515,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/25/交接文档/" data-id="cinfoox1r0004ekmxtj56hxqh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/25/交接文档/" data-id="cinily4eo000bbcmx7nkeqlvn" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -231,7 +569,7 @@ filter里实现
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/25/包用途/" data-id="cinfoox210006ekmxqe5rqt4i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/25/包用途/" data-id="cinily4bt0006bcmxvdcuoqh0" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -375,7 +713,7 @@ zkServer.sh start
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/25/Zookeeper+Kafka部署/" data-id="cinfoox1a0001ekmxejt8iib1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/25/Zookeeper+Kafka部署/" data-id="cinily4b30001bcmxv3ohxqyo" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -415,7 +753,7 @@ conf.set(&quot;spark.executor.memory&quot;, &quot;4g&quot;) 计算资源没有4G
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/25/spark提交/" data-id="cinfoox1o0003ekmx40f2yj2z" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/25/spark提交/" data-id="cinily4bi0004bcmx786emu94" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -518,7 +856,7 @@ public void filter(ContainerRequestContext request) throws IOException {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/25/eclipse/" data-id="cinfoox33000aekmx34azfvzx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/25/eclipse/" data-id="cinily4dm000abcmxf32izr0v" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -717,7 +1055,7 @@ hadoop-daemon.sh start datanode
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/13/HDFS高可用部署/" data-id="cinfoox0y0000ekmxr939vpu5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/13/HDFS高可用部署/" data-id="cinily4b70002bcmxt8xrj61x" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -759,11 +1097,12 @@ hadoop-daemon.sh start datanode
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 <p>##hexo 命令##<br>需要到Blog目录路径下去。</p>
+<p>##命令行设置代理##<br>    set http_proxy=<a href="http://your_proxy:your_port" target="_blank" rel="external">http://your_proxy:your_port</a><br>    set http_proxy=<a href="http://username:password@your_proxy:your_port" target="_blank" rel="external">http://username:password@your_proxy:your_port</a><br>    set https_proxy=<a href="https://your_proxy:your_port" target="_blank" rel="external">https://your_proxy:your_port</a><br>    set https_proxy=<a href="https://username:password@your_proxy:your_port" target="_blank" rel="external">https://username:password@your_proxy:your_port</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/13/hello-world/" data-id="cinfoox1i0002ekmxld4j85uh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/13/hello-world/" data-id="cinily4bm0005bcmx3o7lbox9" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -1043,7 +1382,7 @@ System.out.println(l.get());
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/04/java-concurrent-executors/" data-id="cinfoox240007ekmxylwc272g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/04/java-concurrent-executors/" data-id="cinily4c20007bcmxfpuc2yip" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java-Concurrent/">Java Concurrent</a></li></ul>
@@ -1065,7 +1404,7 @@ System.out.println(l.get());
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Concurrent/">Java Concurrent</a></li></ul>
     </div>
@@ -1075,7 +1414,7 @@ System.out.println(l.get());
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
       <a href="/tags/Java-Concurrent/" style="font-size: 10px;">Java Concurrent</a>
     </div>
@@ -1094,9 +1433,13 @@ System.out.println(l.get());
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/04/27/c++从入门到崩溃/">(no title)</a>
+          </li>
         
           <li>
             <a href="/2016/04/25/修改Mysql密码/">(no title)</a>
@@ -1114,10 +1457,6 @@ System.out.println(l.get());
             <a href="/2016/04/25/Zookeeper+Kafka部署/">(no title)</a>
           </li>
         
-          <li>
-            <a href="/2016/04/25/spark提交/">(no title)</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1131,7 +1470,7 @@ System.out.println(l.get());
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

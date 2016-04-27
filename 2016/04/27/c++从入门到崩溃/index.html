@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="title: C++从入门到崩溃date: 2016-4-27 17:11:54categories: defaulttags: C++description: C++学习笔记
+#C++从入门到崩溃#
+##1，时间##
+#include &amp;lt;time.h&amp;gt; 
+#include &amp;lt;sys/timeb.h&amp;gt;
+
+struct _timeb putGetBegin,putGetEnd">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2016/04/27/c++从入门到崩溃/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="title: C++从入门到崩溃date: 2016-4-27 17:11:54categories: defaulttags: C++description: C++学习笔记
+#C++从入门到崩溃#
+##1，时间##
+#include &amp;lt;time.h&amp;gt; 
+#include &amp;lt;sys/timeb.h&amp;gt;
+
+struct _timeb putGetBegin,putGetEnd">
+<meta property="og:updated_time" content="2016-04-27T08:31:18.056Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="title: C++从入门到崩溃date: 2016-4-27 17:11:54categories: defaulttags: C++description: C++学习笔记
+#C++从入门到崩溃#
+##1，时间##
+#include &amp;lt;time.h&amp;gt; 
+#include &amp;lt;sys/timeb.h&amp;gt;
+
+struct _timeb putGetBegin,putGetEnd">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-c++从入门到崩溃" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/27/c++从入门到崩溃/" class="article-date">
+  <time datetime="2016-04-27T06:40:46.260Z" itemprop="datePublished">2016-04-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>title: C++从入门到崩溃<br>date: 2016-4-27 17:11:54<br>categories: default<br>tags: C++<br>description: C++学习笔记</p>
+<p>#C++从入门到崩溃#</p>
+<p>##1，时间##</p>
+<pre><code>#include &lt;time.h&gt; 
+#include &lt;sys/timeb.h&gt;
+
+struct _timeb putGetBegin,putGetEnd;
+float putGetTotal;
+_ftime(&amp;putGetBegin);
+_ftime(&amp;putGetEnd);
+putGetTotal = (float)( putGetEnd.time-putGetBegin.time )*1000 + (putGetEnd.millitm-putGetBegin.millitm );
+</code></pre><p>##IOCP##<br>    enum IO_OPERATION<br>    {<br>        RECV,<br>        SEND<br>    }//标示类型是收还是发<br>自定义参数结构</p>
+<pre><code>struct context
+{
+    WSAOVERLAPPED    Overlapped;
+    IO_OPERATION    IOOperation;
+    char            rBuf[MAX_RECV_SIZE];// 接收到的数据缓冲区
+    WSABUF            wsabuf;//收的数据
+}
+struct connSt{
+    context stContext;
+    int index;
+    ...
+}
+g_IOCmp = CreateIoCompletionPort(INVALIDHANDLE,NULL,NULL,NULL);
+//将socket加入到完成端口
+CreateIoCompletionPort(socket,g_IOCmp,&amp;connSt,threadNum);
+//第一个为要加入完成端口的socket
+//第二个为要加入的完成端口
+//第三个为用户自定义的参数
+//第四个为线程数，有多少个线程数就需要创建多少个接收线程。
+
+connSt conn;
+DWORD flags;
+conn.stContext.IOOperation = RECV;
+conn.stContext.wsabuf.buf = conn.stContext.rBuf;
+conn.stContext.wsabuf.len = MAX_RECV_SIZE;
+
+//投递一个recv请求,在前面的代码设置IOOPeration类型，请求收的字节数，请求收的buf放到哪里
+wsarecv(socket,conn.stContext.wsabuf.buf,1,&amp;recvbytes,flags,&amp;conn.stContext.overlapped,NULL);
+
+//////另一个线程做的事情：
+GetQueuedCompletionStatus((g_IOCmp, &amp;dwIoSize, (LPDWORD)&amp;lpConnSlot, &amp;lpOverlapped, INFINITE))
+//第一个，完成端口
+//第二个，实际接收到的大小
+//第三个，得到在CreateIOCompletePort是绑定的自定义参数指针
+//第四个，重叠结构
+//第五个，等待时间
+
+if(lpConnSlot == NULL)
+{break;}
+if(iRet ==0)||(iRet!=0 &amp;&amp; dwIoSize ==0)
+{有关闭}
+//判断IOOperation的类型（是接收，发送）
+//如果是发送，
+  从lpConnSlot.context.wsabuf.buf中取dwIoSize大小的数据
+  投递新的请求
+</code></pre><p>IOCP的原理其实还是在通过重叠结构lpOverlapped来找到其母结构体。</p>
+<font color="red"><br><br>    #define CONTAINING_RECORD(address, type, field) ((type <em>)( (PCHAR)(address) - (ULONG_PTR)(&amp;((type</em>)0)-&gt;field)))<br><br>    pSocketSlot = CONTAINING_RECORD(lpOverlapped, IOCP_SOCKET_SLOT, stOverlapped);<br></font>
+
+<p>宏的展开</p>
+<pre><code>((IOCP_SOCKET_SLOT *)( (PCHAR)(lpOverlapped) - (ULONG_PTR)(&amp;((IOCP_SOCKET_SLOT*)0)-&gt;stOverlapped)))
+</code></pre><p>(ULONG_PTR)(&amp;((IOCP_SOCKET_SLOT*)0)-&gt;stOverlapped))<br>表示stOverlapped相对于结构体IOCP_SOCKET_SLOT来说，偏移了多少个位置</p>
+<p>而(PCHAR)lpOverlapped 的加减操作实际为指针的移位操作。<br>总的来讲就是将lpOverlapped左移位偏移量到结构体的首地址。再指针强转。</p>
+<p>##STL方便编程的方式##</p>
+<pre><code>typedef vector&lt;string&gt; VecStr 
+</code></pre><p>以后定义一个string类型的VecStr时，直接VecStr就行了，省了很多。</p>
+<p>##动态加载##</p>
+<pre><code>LoadLibrary(“xxx.dll”)
+
+typedef int ( *func)(para);
+func Testfunc;
+Testfunc = GetProcAddress(HINSTAHCE xxx, &quot;apiname&quot;);
+
+FreeLibrary()
+当出现错误时，要在typedef int中加函数类型：__stdcall __cdecl
+</code></pre><p>linux 下的api为：</p>
+<pre><code>#include &lt;dlfcn.h&gt;
+
+   void *dlopen( const char *file, int mode );
+
+//有了 ELF 对象的句柄，就可以通过调用 dlsym 来识别这个对象内的符号的地址了。该函数采用一个符号名称，如对象内的一个函数的名称。返回值为对象符号的解析地址：
+void *dlsym( void *restrict handle, const char *restrict name );
+
+//如果调用该 API 时发生了错误，可以使用 dlerror 函数返回一个表示此错误的人类可读的字符串。该函数没有参数，它会在发生前面的错误时返回一个字符串，在没有错误发生时返回 NULL：
+char *dlerror();
+
+//最后，如果无需再调用共享对象的话，应用程序可以调用 dlclose 来通知操作系统不再需要句柄和对象引用了。它完全是按引用来计数的，所以同一个共享对象的多个用户相互间不会发生冲突（只要还有一个用户在使用它，它就会待在内存中）。任何通过已关闭的对象的 dlsym 解析的符号都将不再可用。
+char *dlclose( void *handle );
+</code></pre><p>##防止头文件重复被包含##</p>
+<pre><code>#ifndef _HELLOWORLD_H
+#define _HELLOWORLD_H
+
+//头文件内容。。。
+
+#endif
+</code></pre><p>##vs2010未能找到符号“FUNC_1”的定义解决方法##</p>
+<p>关闭工程，删除工程对应的sdf文件，再重新打开工程。</p>
+<p>##线程更新主窗口控件数据的方法##</p>
+<p>主窗口实现Message日志的接口。自定义的MessageID。</p>
+<p>1，定义消息类型： </p>
+<pre><code>`#define WM_MESSAGE_MYDEBUG (WM_USER+122)`
+</code></pre><p>2，定义消息处理函数：</p>
+<p>   <code>afx_msg LRESULT onErrMessage(WPARAM wPapam, LPARAM lPapam);</code></p>
+<p>3，添加到消息map中</p>
+<p>   <code>ON_MESSAGE(WM_MY_ERR_MESSAGE,&amp;CApiTest_01Dlg::onErrMessage)</code></p>
+<p>4，实现onErrMessage</p>
+<pre><code>   LRESULT CApiTest_01Dlg::onErrMessage(WPARAM wParam,LPARAM lParam) //WPARAM是一个UNIT_PTR的指针
+{
+    char* newMsg = (char*)wParam;
+}
+</code></pre><p>5，线程函数：</p>
+<pre><code>   UINT threadFunc_1(LPVOID pParam)
+{
+    HWND hHwnd = (HWND)pParam;// 窗口参数
+
+    char *str = &quot;feafe&quot;;
+
+    ::PostMessage(hHwnd, WM_MY_DEBUG_MESSAGE, (WPARAM)str, NULL);
+    return 1;
+}
+</code></pre><p>6，MFC调用线程：</p>
+<pre><code>HWND hHwnd = GetSafeHwnd();//将hHwnd作为线程参数传递。
+
+ HANDLE hThread;
+ DWORD dwThreadId;
+
+
+ hThread = ::CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)threadFunc_1, (LPVOID)hHwnd, 0, &amp;dwThreadId);
+</code></pre><p>##类成员与线程##<br>使用类成员函数创建thread 篇：</p>
+<p>比较好的方法。可以抽象出C++的类似于Java的线程模型</p>
+<pre><code>class Thread
+{
+private:
+    int x;
+    public:
+    virtual int worker();
+    static void run(Thread * pthis); // 静态成员函数
+    void createThread()
+       {
+        pthread_create(threadid, NULL, &amp;Thread::run, this);
+    }
+};
+</code></pre><p>原理：将this作为参数传递。</p>
+<pre><code>pthread_create(threadid, run, this);
+</code></pre><p>在线程中再强转回来。</p>
+<p>##this指针##<br>（1）this只能在成员函数中使用。<br>全局函数、静态函数都不能使用this.<br>实际上，成员函数默认第一个参数为<code>T * const this。</code><br>如：</p>
+<pre><code>class A
+{
+ public:
+    int func(int p)
+    {
+    }
+};
+</code></pre><p>其中，func的原型在编译器看来应该是：</p>
+<p>  <code>int func(A * const this,int p);</code></p>
+<p>（2）由此可见，this在成员函数的开始前构造，在成员函数的结束后清除。<br>这个生命周期同任何一个函数的参数是一样的，没有任何区别。<br>当调用一个类的成员函数时，编译器将类的指针作为函数的this参数传递进去。如：</p>
+<pre><code>A a;
+a.func(10);
+此处，编译器将会编译成：
+A::func(&amp;a,10);
+</code></pre><p>看起来和静态函数没差别，对吗？不过，区别还是有的。编译器通常会对this指针做一些优化，因此，this指针的传递效率比较高–如VC通常是通过ecx寄存器传递this参数的。</p>
+<p>##编译器优化##</p>
+<font color="red">volatile 关键字</font>
+
+<p>volatile:(嵌入式程序员必须掌握的)volatile最初的意思是表示汽油容易挥发,在c中的作用大概有两点</p>
+<ul>
+<li>表示变量是易失的,易变的. </li>
+<li>强制访存操作,防止编译器去优化,告诉编译器每次必须去内存中取值,而不是从寄存器或者缓存.</li>
+</ul>
+<p>应用场景：</p>
+<font color="red">asm (“memoryBarrier”);</font>
+
+<p>内存屏障，防止cpu乱序。在单例时需要使用到</p>
+<pre><code>Singleton* Singleton::instance() {
+if (pInstance == 0) {
+Lock lock;
+if (pInstance == 0) {
+pInstance = // Step 3
+operator new(sizeof(Singleton)); // Step 1
+new (pInstance) Singleton; // Step 2
+}
+}
+return pInstance;
+}
+</code></pre><p>##dll库##<br>如何创建动态库dll函数的编写，有两种方法：<br>使用.def文件：</p>
+<pre><code>LIBRARY  &quot;kcxpapi&quot;
+DESCRIPTION  &apos;KCXPAPI Windows Dynamic Link Library&apos;
+
+EXPORTS
+; Explicit exports can go here
+
+KCXP_Close ：函数名
+</code></pre><p>或者：</p>
+<pre><code>#ifdef _KRDP_EXPORTS
+#define KRDP_API __declspec(dllexport)
+#else
+#define KRDP_API __declspec(dllimport)
+#endif
+
+KRDP_API KCXP_Close
+</code></pre><p>##c++类的内存结构，类大小##</p>
+<ul>
+<li><p>空的类是会占用内存空间的，而且大小是1，原因是C++要求每个实例在内存中都有独一无二的地址。</p>
+</li>
+<li><p>类内部的成员变量：<br>普通的变量：是要占用内存的，但是要注意对齐原则（这点和struct类型很相似）。<br>static修饰的静态变量：不占用内容，原因是编译器将其放在全局变量区。 </p>
+</li>
+<li>类内部的成员函数：<br>普通函数：不占用内存。<br>虚函数：要占用4个字节，用来指定虚函数的虚拟函数表的入口地址。所以一个类的虚函数所占用的地址是不变的，和虚函数的个数是没有关系的。</li>
+</ul>
+<p>##c++可变参数##</p>
+<pre><code>c/c++可变参数
+func(char *fmt,...)
+{
+    va_list arg;
+    va_start(arg,fmt);
+    _vsnprintf(buf,len,fmt,arg);
+    va_ent(arg);
+}
+</code></pre><p>##c++ callback##<br>    /////////call_back//////////////////<br>    typedef void (*call_back)(int i,int j,int k);</p>
+<pre><code>call_back CALL = NULL;
+
+int func(call_back CALLf)
+{
+    CALL = CALLf;
+    CALL(1,2,3);
+}
+</code></pre><p>函数指针的运用。</p>
+<p>##命令行设置代理##<br>设置代理：</p>
+<p><code>set HTTP_Proxy = xxxxxxx:8000</code></p>
+<p>##c++ extern##<br>c++与c语言混合编程问题的解决</p>
+<pre><code>#ifndef _HEADER_
+#define _HEADER_
+
+#ifdef __cplusplus
+extern &quot;C&quot;{
+#endif    
+
+/*函数体*/
+
+#ifdef __cplusplus
+}
+#endif
+
+
+#endif 
+</code></pre><p>但extern “C” 永远只能在cpp引用时出现，c引用时不允许存在。原因：C++编译会有修饰符：@1，@2这些。而在C中是没有的。</p>
+<p>##模板##</p>
+<p>###函数指针，自定义函数。###<br>    template <class t="" ,typename="" type1,typename="" type2=""><br>    void notify(T a,Type1 1,Type2 2)<br>    {<br>        (a-&gt;1)(2);//实现函数的调用。<br>    }</class></p>
+<p>##查看导出函数##</p>
+<p>windows：</p>
+<pre><code>dumpbin /exports XXX.lib 查看lib文件下的导出函数
+</code></pre><p>linux:</p>
+<pre><code>nm -D mylib.so
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/27/c++从入门到崩溃/" data-id="cinily4at0000bcmx204kj6eh" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/04/25/修改Mysql密码/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Concurrent/">Java Concurrent</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Java-Concurrent/" style="font-size: 10px;">Java Concurrent</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/04/27/c++从入门到崩溃/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/25/修改Mysql密码/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/25/交接文档/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/25/包用途/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/25/Zookeeper+Kafka部署/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
