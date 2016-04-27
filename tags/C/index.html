@@ -80,37 +80,15 @@
 
 
 
-<meta name="description" content="Date:2016-4-19Author:Alaric Liu
-#包用途#
-##Java语言##NameBinding jar包。filterLogMonitor详见文档
-##包解耦设计##1，Bean-&amp;gt;最基础的类
-2，Dao-&amp;gt;数据库操作相关
-3，Service-&amp;gt;前端调用相关
-##包及其作用##
-####com.amazing.rs####该包与用户权限，登陆等有关。普通的">
-<meta property="og:type" content="article">
+<meta name="description" content="study and notes">
+<meta property="og:type" content="website">
 <meta property="og:title" content="Alaric Study Notes">
-<meta property="og:url" content="http://yoursite.com/2016/04/25/包用途/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/C/index.html">
 <meta property="og:site_name" content="Alaric Study Notes">
-<meta property="og:description" content="Date:2016-4-19Author:Alaric Liu
-#包用途#
-##Java语言##NameBinding jar包。filterLogMonitor详见文档
-##包解耦设计##1，Bean-&amp;gt;最基础的类
-2，Dao-&amp;gt;数据库操作相关
-3，Service-&amp;gt;前端调用相关
-##包及其作用##
-####com.amazing.rs####该包与用户权限，登陆等有关。普通的">
-<meta property="og:updated_time" content="2016-04-25T05:32:29.511Z">
+<meta property="og:description" content="study and notes">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Alaric Study Notes">
-<meta name="twitter:description" content="Date:2016-4-19Author:Alaric Liu
-#包用途#
-##Java语言##NameBinding jar包。filterLogMonitor详见文档
-##包解耦设计##1，Bean-&amp;gt;最基础的类
-2，Dao-&amp;gt;数据库操作相关
-3，Service-&amp;gt;前端调用相关
-##包及其作用##
-####com.amazing.rs####该包与用户权限，登陆等有关。普通的">
+<meta name="twitter:description" content="study and notes">
 
 
 
@@ -128,7 +106,7 @@
   };
 </script>
 
-  <title>  | Alaric Study Notes </title>
+  <title> Tag: C++ | Alaric Study Notes </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
@@ -149,7 +127,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -227,144 +205,46 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <div id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h2 >
+        C++
+        <small>Tag</small>
+      </h2>
+    </div>
 
     
-      <header class="post-header">
+      
 
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
         
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
+            <a class="post-title-link" href="/2016/04/27/c++从入门到崩溃/" itemprop="url">
               
-                
+                <span itemprop="name">C++从入门到崩溃</span>
               
-            
-          </h1>
+            </a>
         
+      </h1>
 
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Veröffentlicht am</span>
-            <time itemprop="dateCreated" datetime="2016-04-25T15:07:49+08:00" content="2016-04-25">
-              2016-04-25
-            </time>
-          </span>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2016-04-27T17:11:54+08:00"
+              content="2016-04-27" >
+          04-27
+        </time>
+      </div>
 
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>Date:2016-4-19<br>Author:Alaric Liu</p>
-<p>#包用途#</p>
-<p>##Java语言##<br>NameBinding jar包。<br>filter<br>LogMonitor详见文档</p>
-<p>##包解耦设计##<br>1，Bean-&gt;最基础的类</p>
-<p>2，Dao-&gt;数据库操作相关</p>
-<p>3，Service-&gt;前端调用相关</p>
-<p>##包及其作用##</p>
-<p>####com.amazing.rs####<br>该包与用户权限，登陆等有关。普通的jar包，提供给其他jar包用</p>
-<p>TokenAuthenticated 在别的类中可以这样使用</p>
-<pre><code>@GET
-@TokenAuthenticated
-@Path(&quot;/{begin}-{end}&quot;)
-public Result getTotalData
-filter里实现
-</code></pre><p>表示Interface GetTotalData需要进行权限验证。</p>
-<p>####com.kingdom.cloud.manage####<br>运营管理平台，数据字典增删改差。前端通过service调用。<br>部署在tomcat上</p>
-<p>####com.szkingdom.commonanalysis####<br>业务的计算，调用scala进行计算。（建议改成scala）<br>实时计算（从kafka取数据）与离线计算（从hdfs取数据）。<br>真正的计算在com.szkingdom.commonanalysis.spark的包里<br>部署在tomcat上</p>
-<p>####com.szkingdom.commonanalysis.daq####<br>数据采集，从XP里取数据，发送到Kafka并写日志到本地。Fabric注入<br>部署在tomcat上</p>
-<p>####com.szkingdom.commonanalysis.service####<br>查询统计接口，用户定义统计。前端调用。<br>部署在tomcat上</p>
-<p>####com.szkingdom.commonanalysis.spark####<br>scala计算</p>
-<p>####com.szkingdom.hdfs.upload####<br>上传hdfs。</p>
-<p>####com.szkingdom.kafka####<br>封装kafka操作</p>
-<p>1，Kafka存10分钟或者一天的消息，去除本地存储消息map</p>
-<p>2，超时判断为线程Sleep多久而定的。</p>
-<p>3，主要是考虑延时才放内存</p>
-<p>####com.szkingdom.report.plugin####<br>报表相关<br>前端有调用</p>
-<p>####com.szkingdom.commonanalysis.spark####<br>spark操作（scala写成）</p>
-<p>####kms_web####<br>前端页面的代码ROOT目录</p>
-
-      
-    </div>
-    
-    <div>
-      
-        
-      
-    </div>
-
-    <div>
-      
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/04/25/Zookeeper+Kafka部署/" rel="next" title="">
-                <i class="fa fa-chevron-left"></i> 
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/25/交接文档/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
+    
   </div>
+
+  
 
 
           </div>
@@ -372,10 +252,6 @@ filter里实现
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -395,17 +271,8 @@ filter里实现
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Inhaltsverzeichnis
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Übersicht
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/default_avatar.jpg"
@@ -457,17 +324,6 @@ filter里实现
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <p class="post-toc-empty">Dieser Artikel hat kein Inhaltsverzeichnis</p>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -570,10 +426,6 @@ filter里实现
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 
