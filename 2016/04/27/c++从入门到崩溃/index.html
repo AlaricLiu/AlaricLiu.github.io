@@ -86,7 +86,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/04/27/c++从入门到崩溃/index.html">
 <meta property="og:site_name" content="Alaric Study Notes">
 <meta property="og:description" content="C++学习笔记">
-<meta property="og:updated_time" content="2016-04-27T09:54:02.356Z">
+<meta property="og:updated_time" content="2016-04-27T09:57:08.154Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++从入门到崩溃">
 <meta name="twitter:description" content="C++学习笔记">
@@ -285,9 +285,7 @@
       
 
       
-        <p>#C++从入门到崩溃#</p>
-<p>##1，时间##</p>
-<pre><code>#include &lt;time.h&gt; 
+        <h1 id="C-从入门到崩溃"><a href="#C-从入门到崩溃" class="headerlink" title="C++从入门到崩溃"></a>C++从入门到崩溃</h1><h2 id="1，时间"><a href="#1，时间" class="headerlink" title="1，时间"></a>1，时间</h2><pre><code>#include &lt;time.h&gt; 
 #include &lt;sys/timeb.h&gt;
 
 struct _timeb putGetBegin,putGetEnd;
@@ -295,7 +293,12 @@ float putGetTotal;
 _ftime(&amp;putGetBegin);
 _ftime(&amp;putGetEnd);
 putGetTotal = (float)( putGetEnd.time-putGetBegin.time )*1000 + (putGetEnd.millitm-putGetBegin.millitm );
-</code></pre><p>##IOCP##<br>    enum IO_OPERATION<br>    {<br>        RECV,<br>        SEND<br>    }//标示类型是收还是发<br>自定义参数结构</p>
+</code></pre><h2 id="IOCP"><a href="#IOCP" class="headerlink" title="IOCP"></a>IOCP</h2><pre><code>enum IO_OPERATION
+{
+    RECV,
+    SEND
+}//标示类型是收还是发
+</code></pre><p>自定义参数结构</p>
 <pre><code>struct context
 {
     WSAOVERLAPPED    Overlapped;
@@ -348,11 +351,9 @@ if(iRet ==0)||(iRet!=0 &amp;&amp; dwIoSize ==0)
 <pre><code>((IOCP_SOCKET_SLOT *)( (PCHAR)(lpOverlapped) - (ULONG_PTR)(&amp;((IOCP_SOCKET_SLOT*)0)-&gt;stOverlapped)))
 </code></pre><p>(ULONG_PTR)(&amp;((IOCP_SOCKET_SLOT*)0)-&gt;stOverlapped))<br>表示stOverlapped相对于结构体IOCP_SOCKET_SLOT来说，偏移了多少个位置</p>
 <p>而(PCHAR)lpOverlapped 的加减操作实际为指针的移位操作。<br>总的来讲就是将lpOverlapped左移位偏移量到结构体的首地址。再指针强转。</p>
-<p>##STL方便编程的方式##</p>
-<pre><code>typedef vector&lt;string&gt; VecStr 
+<h2 id="STL方便编程的方式"><a href="#STL方便编程的方式" class="headerlink" title="STL方便编程的方式"></a>STL方便编程的方式</h2><pre><code>typedef vector&lt;string&gt; VecStr 
 </code></pre><p>以后定义一个string类型的VecStr时，直接VecStr就行了，省了很多。</p>
-<p>##动态加载##</p>
-<pre><code>LoadLibrary(“xxx.dll”)
+<h2 id="动态加载"><a href="#动态加载" class="headerlink" title="动态加载"></a>动态加载</h2><pre><code>LoadLibrary(“xxx.dll”)
 
 typedef int ( *func)(para);
 func Testfunc;
@@ -373,17 +374,14 @@ char *dlerror();
 
 //最后，如果无需再调用共享对象的话，应用程序可以调用 dlclose 来通知操作系统不再需要句柄和对象引用了。它完全是按引用来计数的，所以同一个共享对象的多个用户相互间不会发生冲突（只要还有一个用户在使用它，它就会待在内存中）。任何通过已关闭的对象的 dlsym 解析的符号都将不再可用。
 char *dlclose( void *handle );
-</code></pre><p>##防止头文件重复被包含##</p>
-<pre><code>#ifndef _HELLOWORLD_H
+</code></pre><h2 id="防止头文件重复被包含"><a href="#防止头文件重复被包含" class="headerlink" title="防止头文件重复被包含"></a>防止头文件重复被包含</h2><pre><code>#ifndef _HELLOWORLD_H
 #define _HELLOWORLD_H
 
 //头文件内容。。。
 
 #endif
-</code></pre><p>##vs2010未能找到符号“FUNC_1”的定义解决方法##</p>
-<p>关闭工程，删除工程对应的sdf文件，再重新打开工程。</p>
-<p>##线程更新主窗口控件数据的方法##</p>
-<p>主窗口实现Message日志的接口。自定义的MessageID。</p>
+</code></pre><h2 id="vs2010未能找到符号“FUNC-1”的定义解决方法"><a href="#vs2010未能找到符号“FUNC-1”的定义解决方法" class="headerlink" title="vs2010未能找到符号“FUNC_1”的定义解决方法"></a>vs2010未能找到符号“FUNC_1”的定义解决方法</h2><p>关闭工程，删除工程对应的sdf文件，再重新打开工程。</p>
+<h2 id="线程更新主窗口控件数据的方法"><a href="#线程更新主窗口控件数据的方法" class="headerlink" title="线程更新主窗口控件数据的方法"></a>线程更新主窗口控件数据的方法</h2><p>主窗口实现Message日志的接口。自定义的MessageID。</p>
 <p>1，定义消息类型： </p>
 <pre><code>`#define WM_MESSAGE_MYDEBUG (WM_USER+122)`
 </code></pre><p>2，定义消息处理函数：</p>
@@ -413,7 +411,7 @@ char *dlclose( void *handle );
 
 
  hThread = ::CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)threadFunc_1, (LPVOID)hHwnd, 0, &amp;dwThreadId);
-</code></pre><p>##类成员与线程##<br>使用类成员函数创建thread 篇：</p>
+</code></pre><h2 id="类成员与线程"><a href="#类成员与线程" class="headerlink" title="类成员与线程"></a>类成员与线程</h2><p>使用类成员函数创建thread 篇：</p>
 <p>比较好的方法。可以抽象出C++的类似于Java的线程模型</p>
 <pre><code>class Thread
 {
@@ -430,7 +428,7 @@ private:
 </code></pre><p>原理：将this作为参数传递。</p>
 <pre><code>pthread_create(threadid, run, this);
 </code></pre><p>在线程中再强转回来。</p>
-<p>##this指针##<br>（1）this只能在成员函数中使用。<br>全局函数、静态函数都不能使用this.<br>实际上，成员函数默认第一个参数为<code>T * const this。</code><br>如：</p>
+<h2 id="this指针"><a href="#this指针" class="headerlink" title="this指针"></a>this指针</h2><p>（1）this只能在成员函数中使用。<br>全局函数、静态函数都不能使用this.<br>实际上，成员函数默认第一个参数为<code>T * const this。</code><br>如：</p>
 <pre><code>class A
 {
  public:
@@ -446,8 +444,7 @@ a.func(10);
 此处，编译器将会编译成：
 A::func(&amp;a,10);
 </code></pre><p>看起来和静态函数没差别，对吗？不过，区别还是有的。编译器通常会对this指针做一些优化，因此，this指针的传递效率比较高–如VC通常是通过ecx寄存器传递this参数的。</p>
-<p>##编译器优化##</p>
-<font color="red">volatile 关键字</font>
+<h2 id="编译器优化"><a href="#编译器优化" class="headerlink" title="编译器优化"></a>编译器优化</h2><font color="red">volatile 关键字</font>
 
 <p>volatile:(嵌入式程序员必须掌握的)volatile最初的意思是表示汽油容易挥发,在c中的作用大概有两点</p>
 <ul>
@@ -469,7 +466,7 @@ new (pInstance) Singleton; // Step 2
 }
 return pInstance;
 }
-</code></pre><p>##dll库##<br>如何创建动态库dll函数的编写，有两种方法：<br>使用.def文件：</p>
+</code></pre><h2 id="dll库"><a href="#dll库" class="headerlink" title="dll库"></a>dll库</h2><p>如何创建动态库dll函数的编写，有两种方法：<br>使用.def文件：</p>
 <pre><code>LIBRARY  &quot;kcxpapi&quot;
 DESCRIPTION  &apos;KCXPAPI Windows Dynamic Link Library&apos;
 
@@ -485,16 +482,14 @@ KCXP_Close ：函数名
 #endif
 
 KRDP_API KCXP_Close
-</code></pre><p>##c++类的内存结构，类大小##</p>
-<ul>
+</code></pre><h2 id="c-类的内存结构，类大小"><a href="#c-类的内存结构，类大小" class="headerlink" title="c++类的内存结构，类大小"></a>c++类的内存结构，类大小</h2><ul>
 <li><p>空的类是会占用内存空间的，而且大小是1，原因是C++要求每个实例在内存中都有独一无二的地址。</p>
 </li>
 <li><p>类内部的成员变量：<br>普通的变量：是要占用内存的，但是要注意对齐原则（这点和struct类型很相似）。<br>static修饰的静态变量：不占用内容，原因是编译器将其放在全局变量区。 </p>
 </li>
 <li>类内部的成员函数：<br>普通函数：不占用内存。<br>虚函数：要占用4个字节，用来指定虚函数的虚拟函数表的入口地址。所以一个类的虚函数所占用的地址是不变的，和虚函数的个数是没有关系的。</li>
 </ul>
-<p>##c++可变参数##</p>
-<pre><code>c/c++可变参数
+<h2 id="c-可变参数"><a href="#c-可变参数" class="headerlink" title="c++可变参数"></a>c++可变参数</h2><pre><code>c/c++可变参数
 func(char *fmt,...)
 {
     va_list arg;
@@ -502,8 +497,10 @@ func(char *fmt,...)
     _vsnprintf(buf,len,fmt,arg);
     va_ent(arg);
 }
-</code></pre><p>##c++ callback##<br>    /////////call_back//////////////////<br>    typedef void (*call_back)(int i,int j,int k);</p>
-<pre><code>call_back CALL = NULL;
+</code></pre><h2 id="c-callback"><a href="#c-callback" class="headerlink" title="c++ callback"></a>c++ callback</h2><pre><code>/////////call_back//////////////////
+typedef void (*call_back)(int i,int j,int k);
+
+call_back CALL = NULL;
 
 int func(call_back CALLf)
 {
@@ -511,9 +508,9 @@ int func(call_back CALLf)
     CALL(1,2,3);
 }
 </code></pre><p>函数指针的运用。</p>
-<p>##命令行设置代理##<br>设置代理：</p>
+<h2 id="命令行设置代理"><a href="#命令行设置代理" class="headerlink" title="命令行设置代理"></a>命令行设置代理</h2><p>设置代理：</p>
 <p><code>set HTTP_Proxy = xxxxxxx:8000</code></p>
-<p>##c++ extern##<br>c++与c语言混合编程问题的解决</p>
+<h2 id="c-extern"><a href="#c-extern" class="headerlink" title="c++ extern"></a>c++ extern</h2><p>c++与c语言混合编程问题的解决</p>
 <pre><code>#ifndef _HEADER_
 #define _HEADER_
 
@@ -530,10 +527,12 @@ extern &quot;C&quot;{
 
 #endif 
 </code></pre><p>但extern “C” 永远只能在cpp引用时出现，c引用时不允许存在。原因：C++编译会有修饰符：@1，@2这些。而在C中是没有的。</p>
-<p>##模板##</p>
-<p>###函数指针，自定义函数。###<br>    template <class t="" ,typename="" type1,typename="" type2=""><br>    void notify(T a,Type1 1,Type2 2)<br>    {<br>        (a-&gt;1)(2);//实现函数的调用。<br>    }</class></p>
-<p>##查看导出函数##</p>
-<p>windows：</p>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><h3 id="函数指针，自定义函数。"><a href="#函数指针，自定义函数。" class="headerlink" title="函数指针，自定义函数。"></a>函数指针，自定义函数。</h3><pre><code>template &lt;class T ,typename Type1,typename Type2&gt;
+void notify(T a,Type1 1,Type2 2)
+{
+    (a-&gt;1)(2);//实现函数的调用。
+}
+</code></pre><h2 id="查看导出函数"><a href="#查看导出函数" class="headerlink" title="查看导出函数"></a>查看导出函数</h2><p>windows：</p>
 <pre><code>dumpbin /exports XXX.lib 查看lib文件下的导出函数
 </code></pre><p>linux:</p>
 <pre><code>nm -D mylib.so
@@ -688,7 +687,7 @@ extern &quot;C&quot;{
               
             
             
-              <p class="post-toc-empty">Dieser Artikel hat kein Inhaltsverzeichnis</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-从入门到崩溃"><span class="nav-number">1.</span> <span class="nav-text">C++从入门到崩溃</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1，时间"><span class="nav-number">1.1.</span> <span class="nav-text">1，时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IOCP"><span class="nav-number">1.2.</span> <span class="nav-text">IOCP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STL方便编程的方式"><span class="nav-number">1.3.</span> <span class="nav-text">STL方便编程的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态加载"><span class="nav-number">1.4.</span> <span class="nav-text">动态加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防止头文件重复被包含"><span class="nav-number">1.5.</span> <span class="nav-text">防止头文件重复被包含</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vs2010未能找到符号“FUNC-1”的定义解决方法"><span class="nav-number">1.6.</span> <span class="nav-text">vs2010未能找到符号“FUNC_1”的定义解决方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程更新主窗口控件数据的方法"><span class="nav-number">1.7.</span> <span class="nav-text">线程更新主窗口控件数据的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类成员与线程"><span class="nav-number">1.8.</span> <span class="nav-text">类成员与线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this指针"><span class="nav-number">1.9.</span> <span class="nav-text">this指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译器优化"><span class="nav-number">1.10.</span> <span class="nav-text">编译器优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dll库"><span class="nav-number">1.11.</span> <span class="nav-text">dll库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#c-类的内存结构，类大小"><span class="nav-number">1.12.</span> <span class="nav-text">c++类的内存结构，类大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#c-可变参数"><span class="nav-number">1.13.</span> <span class="nav-text">c++可变参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#c-callback"><span class="nav-number">1.14.</span> <span class="nav-text">c++ callback</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行设置代理"><span class="nav-number">1.15.</span> <span class="nav-text">命令行设置代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#c-extern"><span class="nav-number">1.16.</span> <span class="nav-text">c++ extern</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板"><span class="nav-number">1.17.</span> <span class="nav-text">模板</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数指针，自定义函数。"><span class="nav-number">1.17.1.</span> <span class="nav-text">函数指针，自定义函数。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看导出函数"><span class="nav-number">1.18.</span> <span class="nav-text">查看导出函数</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
