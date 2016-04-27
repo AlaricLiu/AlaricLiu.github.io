@@ -64,7 +64,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="spark," />
 
 
 
@@ -80,15 +80,16 @@
 
 
 
-<meta name="description" content="study and notes">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Alaric Study Notes">
-<meta property="og:url" content="http://yoursite.com/tags/Java-Concurrent/index.html">
+<meta name="description" content="spark提交中的问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spark提交的问题">
+<meta property="og:url" content="http://yoursite.com/2016/04/27/spark提交/index.html">
 <meta property="og:site_name" content="Alaric Study Notes">
-<meta property="og:description" content="study and notes">
+<meta property="og:description" content="spark提交中的问题">
+<meta property="og:updated_time" content="2016-04-27T10:09:15.698Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Alaric Study Notes">
-<meta name="twitter:description" content="study and notes">
+<meta name="twitter:title" content="spark提交的问题">
+<meta name="twitter:description" content="spark提交中的问题">
 
 
 
@@ -106,7 +107,7 @@
   };
 </script>
 
-  <title> Tag: Java Concurrent | Alaric Study Notes </title>
+  <title> spark提交的问题 | Alaric Study Notes </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
@@ -127,7 +128,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -205,46 +206,153 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        Java Concurrent
-        <small>Tag</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                spark提交的问题
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-04-27T17:11:54+08:00" content="2016-04-27">
+              2016-04-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h1 id="spark提交"><a href="#spark提交" class="headerlink" title="spark提交"></a>spark提交</h1><pre><code>./spark-submit --class com.szkingdom.commonanalysis.analysis.Analyser --master spark://192.168.43.131:7077 --jars /home/hadoop/jars/com.szkingdom.commonanalysis.spark.jar,/home/hadoop/jars/commons-dbcp2-2.1.1.jar,/home/hadoop/jars/commons-pool2-2.4.2.jar,/home/hadoop/jars/mysql-connector-java-5.1.36-bin.jar,/home/hadoop/jars/spark-streaming-kafka-assembly_2.10-1.4.0.jar /home/hadoop/jars/lates.jar 
+</code></pre><p><font color="red" size="3"><br>目前存在的问题<br></font><br><br><br>提交到master上时，导致slave的worker崩溃。<br></p>
+<pre><code>Exception in thread &quot;main&quot; java.util.concurrent.TimeoutException: Futures timed out after [10000 milliseconds]
+</code></pre><p>修改jar包中的core-site.xml 和 hdfs-site.xml.</p>
+<pre><code>File does not exist: hdfs://192.168.43.131:9000/spark/app_history
+hdfs dfs -mkdir /spark/app_history
 
-      <h1 class="post-title">
+conf.set(&quot;spark.executor.memory&quot;, &quot;4g&quot;) 计算资源没有4G时是waiting
+</code></pre><p>connection refused：service iptables stop关闭防火墙</p>
+<p>Wrong FS: hdfs://172.16.41.157:8020/cloud/20160421/reqdata.log, expected: hdfs://cloudhdfs</p>
+<p>com.szkingdom.commonanalysis 的config.properties 配置<br>hdfs_nameservice=hdfs://cloudhdfs</p>
+<p>google draper 谷歌业务跟踪 阿里的鹰眼</p>
+
+      
+    </div>
+    
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/04/04/java-concurrent-executors/" itemprop="url">
-              
-                <span itemprop="name">Java并发Level 2 - Executor</span>
-              
-            </a>
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
+      
+    </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-04-04T20:55:25+08:00"
-              content="2016-04-04" >
-          04-04
-        </time>
-      </div>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/spark/" rel="tag">#spark</a>
+          
+        </div>
+      
 
-    </header>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/27/交接文档/" rel="next" title="交接文档">
+                <i class="fa fa-chevron-left"></i> 交接文档
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/27/Zookeeper+Kafka部署/" rel="prev" title="zookeeper与kafka的部署">
+                zookeeper与kafka的部署 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -252,6 +360,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -271,8 +383,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/default_avatar.jpg"
@@ -324,6 +445,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#spark提交"><span class="nav-number">1.</span> <span class="nav-text">spark提交</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -426,6 +558,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
