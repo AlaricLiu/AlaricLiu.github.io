@@ -80,22 +80,19 @@
 
 
 
-<meta name="description" content="title:Eclipse使用date:2016-4-19author:Alaric Liutags:开发工具使用
-#spark提交#
-./spark-submit --class com.szkingdom.commonanalysis.analysis.Analyser --master spark://192.168.43.131:7077 --jars /home/hadoop/jars/">
+<meta name="description" content="title:Eclipse使用date:2016-4-19author:Alaric Liu
+tags:开发工具使用spark提交./spark-submit --class com.szkingdom.commonanalysis.analysis.Analyser --master spark://192.168.43.131:7077 --jars /home/hadoop/jars/com">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Alaric Study Notes">
 <meta property="og:url" content="http://yoursite.com/2016/04/25/spark提交/index.html">
 <meta property="og:site_name" content="Alaric Study Notes">
-<meta property="og:description" content="title:Eclipse使用date:2016-4-19author:Alaric Liutags:开发工具使用
-#spark提交#
-./spark-submit --class com.szkingdom.commonanalysis.analysis.Analyser --master spark://192.168.43.131:7077 --jars /home/hadoop/jars/">
-<meta property="og:updated_time" content="2016-04-22T06:44:50.906Z">
+<meta property="og:description" content="title:Eclipse使用date:2016-4-19author:Alaric Liu
+tags:开发工具使用spark提交./spark-submit --class com.szkingdom.commonanalysis.analysis.Analyser --master spark://192.168.43.131:7077 --jars /home/hadoop/jars/com">
+<meta property="og:updated_time" content="2016-04-27T10:02:43.289Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Alaric Study Notes">
-<meta name="twitter:description" content="title:Eclipse使用date:2016-4-19author:Alaric Liutags:开发工具使用
-#spark提交#
-./spark-submit --class com.szkingdom.commonanalysis.analysis.Analyser --master spark://192.168.43.131:7077 --jars /home/hadoop/jars/">
+<meta name="twitter:description" content="title:Eclipse使用date:2016-4-19author:Alaric Liu
+tags:开发工具使用spark提交./spark-submit --class com.szkingdom.commonanalysis.analysis.Analyser --master spark://192.168.43.131:7077 --jars /home/hadoop/jars/com">
 
 
 
@@ -171,7 +168,7 @@
             
               <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -181,7 +178,7 @@
             
               <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -244,7 +241,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-04-25T15:07:49+08:00" content="2016-04-25">
               2016-04-25
             </time>
@@ -272,9 +269,8 @@
       
 
       
-        <p>title:Eclipse使用<br>date:2016-4-19<br>author:Alaric Liu<br>tags:开发工具使用</p>
-<p>#spark提交#</p>
-<pre><code>./spark-submit --class com.szkingdom.commonanalysis.analysis.Analyser --master spark://192.168.43.131:7077 --jars /home/hadoop/jars/com.szkingdom.commonanalysis.spark.jar,/home/hadoop/jars/commons-dbcp2-2.1.1.jar,/home/hadoop/jars/commons-pool2-2.4.2.jar,/home/hadoop/jars/mysql-connector-java-5.1.36-bin.jar,/home/hadoop/jars/spark-streaming-kafka-assembly_2.10-1.4.0.jar /home/hadoop/jars/lates.jar 
+        <p>title:Eclipse使用<br>date:2016-4-19<br>author:Alaric Liu</p>
+<h2 id="tags-开发工具使用"><a href="#tags-开发工具使用" class="headerlink" title="tags:开发工具使用"></a>tags:开发工具使用</h2><h1 id="spark提交"><a href="#spark提交" class="headerlink" title="spark提交"></a>spark提交</h1><pre><code>./spark-submit --class com.szkingdom.commonanalysis.analysis.Analyser --master spark://192.168.43.131:7077 --jars /home/hadoop/jars/com.szkingdom.commonanalysis.spark.jar,/home/hadoop/jars/commons-dbcp2-2.1.1.jar,/home/hadoop/jars/commons-pool2-2.4.2.jar,/home/hadoop/jars/mysql-connector-java-5.1.36-bin.jar,/home/hadoop/jars/spark-streaming-kafka-assembly_2.10-1.4.0.jar /home/hadoop/jars/lates.jar 
 </code></pre><p><font color="red" size="3"><br>目前存在的问题<br></font><br><br><br>提交到master上时，导致slave的worker崩溃。<br></p>
 <pre><code>Exception in thread &quot;main&quot; java.util.concurrent.TimeoutException: Futures timed out after [10000 milliseconds]
 </code></pre><p>修改jar包中的core-site.xml 和 hdfs-site.xml.</p>
@@ -368,10 +364,10 @@ conf.set(&quot;spark.executor.memory&quot;, &quot;4g&quot;) 计算资源没有4G
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -387,8 +383,8 @@ conf.set(&quot;spark.executor.memory&quot;, &quot;4g&quot;) 计算资源没有4G
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">10</span>
-              <span class="site-state-item-name">posts</span>
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">Artikel</span>
             </a>
           </div>
 
@@ -396,7 +392,7 @@ conf.set(&quot;spark.executor.memory&quot;, &quot;4g&quot;) 计算资源没有4G
             <div class="site-state-item site-state-categories">
               
                 <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">categories</span>
+                <span class="site-state-item-name">Kategorien</span>
               
             </div>
           
@@ -405,7 +401,7 @@ conf.set(&quot;spark.executor.memory&quot;, &quot;4g&quot;) 计算资源没有4G
             <div class="site-state-item site-state-tags">
               <a href="/tags">
                 <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">tags</span>
+                <span class="site-state-item-name">Tags</span>
               </a>
             </div>
           
@@ -435,7 +431,7 @@ conf.set(&quot;spark.executor.memory&quot;, &quot;4g&quot;) 计算资源没有4G
               
             
             
-              <p class="post-toc-empty">This post does not have a Table of Contents</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tags-开发工具使用"><span class="nav-number">1.</span> <span class="nav-text">tags:开发工具使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#spark提交"><span class="nav-number"></span> <span class="nav-text">spark提交</span></a></div>
             
           </div>
         </section>
@@ -462,7 +458,7 @@ conf.set(&quot;spark.executor.memory&quot;, &quot;4g&quot;) 计算资源没有4G
 </div>
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+  Erstellt mit  <a class="theme-link" href="http://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">

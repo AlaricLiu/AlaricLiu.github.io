@@ -166,7 +166,7 @@
             
               <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -176,7 +176,7 @@
             
               <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -242,7 +242,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-04-27T17:11:54+08:00" content="2016-04-27">
               2016-04-27
             </time>
@@ -254,7 +254,7 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">In</span>
+              <span class="post-meta-item-text">in</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                   <a href="/categories/default/" itemprop="url" rel="index">
@@ -293,7 +293,7 @@
           C++学习笔记
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/04/27/c++从入门到崩溃/">
-              Read more &raquo;
+              Weiterlesen &raquo;
             </a>
           </div>
         
@@ -344,7 +344,7 @@
               
                 
                 <a class="post-title-link" href="/2016/04/25/修改Mysql密码/" itemprop="url">
-                  Untitled
+                  Unbenannt
                 </a>
               
             
@@ -356,7 +356,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-04-25T15:07:49+08:00" content="2016-04-25">
               2016-04-25
             </time>
@@ -386,16 +386,14 @@
       
         
           
-            <p>Title:MySQL学习<br>Date：2016-4-27<br>Author：AlaricLiu</p>
-<p>#mysql修改用户密码#</p>
-<p>##问题1##</p>
-<font color="red">“Host ‘localhost’ is not allowed to connect to this MySQL server.”</font>
+            <p>Title:MySQL学习<br>Date：2016-4-27</p>
+<h2 id="Author：AlaricLiu"><a href="#Author：AlaricLiu" class="headerlink" title="Author：AlaricLiu"></a>Author：AlaricLiu</h2><h1 id="mysql修改用户密码"><a href="#mysql修改用户密码" class="headerlink" title="mysql修改用户密码"></a>mysql修改用户密码</h1><h2 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h2><font color="red">“Host ‘localhost’ is not allowed to connect to this MySQL server.”</font>
 
-<p>###现象与产生原因###<br>USE mysql<br>UPDATE user SET password=’YES’ where user=’root’ AND host=’localhost’;<br>FLUSH PRIVILEGES;</p>
+<h3 id="现象与产生原因"><a href="#现象与产生原因" class="headerlink" title="现象与产生原因"></a>现象与产生原因</h3><p>USE mysql<br>UPDATE user SET password=’YES’ where user=’root’ AND host=’localhost’;<br>FLUSH PRIVILEGES;</p>
 <font color="red">SET password=’YES’，是个梗。以后要用set password=PASSWORD(‘YES’);</font>
 
 <p>退出控制台后就再进不去了。<br>mysql -u root -p<br>mysql -h localhost -u root -p<br>都不行，出现错误：<br>“Host ‘localhost’ is not allowed to connect to this MySQL server.”</p>
-<p>###方法###<br>首先停止mysql服务：</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>首先停止mysql服务：</p>
 <pre><code>service stop mysqld
 </code></pre><p>然后：</p>
 <pre><code>mysqld --skip-grant-tables
@@ -413,7 +411,7 @@
 </code></pre><p>重启mysqld服务。</p>
 <p>如果mysql服务无法正常停止，使用命令：</p>
 <p><code>mysqladmin -u root shutdown</code> </p>
-<p>##问题2##<br>启动mysql 报错：</p>
+<h2 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h2><p>启动mysql 报错：</p>
 <pre><code>ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock’ (2)
 </code></pre><p>1、先查看 <code>/etc/rc.d/init.d/mysqld status</code> 看看mysqld是否已经启动.<br>另外看看是不是权限问题.</p>
 <p>2、确定你的mysql.sock是不是在那个位置，</p>
@@ -426,14 +424,12 @@
 [root@localhost ~]# /etc/init.d/mysqld start
 启动 MySQL： [ 确定 ]
 [root@localhost ~]# mysql -uroot -p
-</code></pre><p>##问题3##</p>
-<font color="red">host is not allowed to connect的问题</font>
+</code></pre><h2 id="问题3"><a href="#问题3" class="headerlink" title="问题3"></a>问题3</h2><font color="red">host is not allowed to connect的问题</font>
 
 <pre><code>grant all PRIVILEGES on *.* to root@&apos;192.168.1.101&apos;  identified by &apos;YES&apos;;
 flush privileges; 
 </code></pre><p>上面的语句表示将 所有 数据库的所有权限授权给 root 这个用户，允许 root 用户在 192.168.1.101 这个 IP 进行远程登陆，并设置 root 用户的密码为 YES 。</p>
-<p>##问题4##</p>
-<font color="red">ACCESS denied for root@’localhost’</font>
+<h2 id="问题4"><a href="#问题4" class="headerlink" title="问题4"></a>问题4</h2><font color="red">ACCESS denied for root@’localhost’</font>
 
 <p>首先停掉mysql服务器</p>
 <pre><code>[root@DB-Server init.d]# /etc/rc.d/init.d/mysql stop
@@ -454,15 +450,20 @@ mysql&gt; update user set password=PASSWORD(&apos;YES&apos;)
 flush privileges
 
 mysql -u root -p
-</code></pre><p>##mysql使用##</p>
-<p>###1.新建用户###<br>    //登录MYSQL<br>    @&gt;mysql -u root -p<br>    @&gt;密码<br>    //创建用户<br>    mysql&gt; insert into mysql.user(Host,User,Password) values(“localhost”,”phplamp”,password(“1234”));<br>    //刷新系统权限表<br>    mysql&gt;flush privileges;<br>这样就创建了一个名为：phplamp  密码为：1234  的用户。</p>
+</code></pre><h2 id="mysql使用"><a href="#mysql使用" class="headerlink" title="mysql使用"></a>mysql使用</h2><h3 id="1-新建用户"><a href="#1-新建用户" class="headerlink" title="1.新建用户"></a>1.新建用户</h3><pre><code>//登录MYSQL
+@&gt;mysql -u root -p
+@&gt;密码
+//创建用户
+mysql&gt; insert into mysql.user(Host,User,Password) values(&quot;localhost&quot;,&quot;phplamp&quot;,password(&quot;1234&quot;));
+//刷新系统权限表
+mysql&gt;flush privileges;
+</code></pre><p>这样就创建了一个名为：phplamp  密码为：1234  的用户。</p>
 <p>然后登录一下。</p>
 <pre><code>mysql&gt;exit;
 @&gt;mysql -u phplamp -p
 @&gt;输入密码
 mysql&gt;登录成功
-</code></pre><p>###2.为用户授权。###</p>
-<pre><code>//登录MYSQL（有ROOT权限）。我里我以ROOT身份登录.
+</code></pre><h3 id="2-为用户授权。"><a href="#2-为用户授权。" class="headerlink" title="2.为用户授权。"></a>2.为用户授权。</h3><pre><code>//登录MYSQL（有ROOT权限）。我里我以ROOT身份登录.
 @&gt;mysql -u root -p
 @&gt;密码
 //首先为用户创建一个数据库(phplampDB)
@@ -479,9 +480,17 @@ mysql&gt;grant select,update on phplampDB.* to phplamp@localhost identified by &
 //刷新系统权限表。
 mysql&gt;flush privileges;
 */
-</code></pre><p>###3.删除用户。###<br>    @&gt;mysql -u root -p<br>    @&gt;密码<br>    mysql&gt;DELETE FROM user WHERE User=”phplamp” and Host=”localhost”;<br>    mysql&gt;flush privileges;<br>    //删除用户的数据库<br>    mysql&gt;drop database phplampDB;</p>
-<p>###4.修改指定用户密码。###<br>    @&gt;mysql -u root -p<br>    @&gt;密码<br>    mysql&gt;update mysql.user set password=password(‘新密码’) where User=”phplamp” and Host=”localhost”;<br>    mysql&gt;flush privileges; </p>
-
+</code></pre><h3 id="3-删除用户。"><a href="#3-删除用户。" class="headerlink" title="3.删除用户。"></a>3.删除用户。</h3><pre><code>@&gt;mysql -u root -p
+@&gt;密码
+mysql&gt;DELETE FROM user WHERE User=&quot;phplamp&quot; and Host=&quot;localhost&quot;;
+mysql&gt;flush privileges;
+//删除用户的数据库
+mysql&gt;drop database phplampDB;
+</code></pre><h3 id="4-修改指定用户密码。"><a href="#4-修改指定用户密码。" class="headerlink" title="4.修改指定用户密码。"></a>4.修改指定用户密码。</h3><pre><code>@&gt;mysql -u root -p
+@&gt;密码
+mysql&gt;update mysql.user set password=password(&apos;新密码&apos;) where User=&quot;phplamp&quot; and Host=&quot;localhost&quot;;
+mysql&gt;flush privileges; 
+</code></pre>
           
         
       
@@ -531,7 +540,7 @@ mysql&gt;flush privileges;
               
                 
                 <a class="post-title-link" href="/2016/04/25/交接文档/" itemprop="url">
-                  Untitled
+                  Unbenannt
                 </a>
               
             
@@ -543,7 +552,7 @@ mysql&gt;flush privileges;
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-04-25T15:07:49+08:00" content="2016-04-25">
               2016-04-25
             </time>
@@ -657,128 +666,8 @@ mysql&gt;flush privileges;
             
               
                 
-                <a class="post-title-link" href="/2016/04/25/包用途/" itemprop="url">
-                  Untitled
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-04-25T15:07:49+08:00" content="2016-04-25">
-              2016-04-25
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Date:2016-4-19<br>Author:Alaric Liu</p>
-<p>#包用途#</p>
-<p>##Java语言##<br>NameBinding jar包。<br>filter<br>LogMonitor详见文档</p>
-<p>##包解耦设计##<br>1，Bean-&gt;最基础的类</p>
-<p>2，Dao-&gt;数据库操作相关</p>
-<p>3，Service-&gt;前端调用相关</p>
-<p>##包及其作用##</p>
-<p>####com.amazing.rs####<br>该包与用户权限，登陆等有关。普通的jar包，提供给其他jar包用</p>
-<p>TokenAuthenticated 在别的类中可以这样使用</p>
-<pre><code>@GET
-@TokenAuthenticated
-@Path(&quot;/{begin}-{end}&quot;)
-public Result getTotalData
-filter里实现
-</code></pre><p>表示Interface GetTotalData需要进行权限验证。</p>
-<p>####com.kingdom.cloud.manage####<br>运营管理平台，数据字典增删改差。前端通过service调用。<br>部署在tomcat上</p>
-<p>####com.szkingdom.commonanalysis####<br>业务的计算，调用scala进行计算。（建议改成scala）<br>实时计算（从kafka取数据）与离线计算（从hdfs取数据）。<br>真正的计算在com.szkingdom.commonanalysis.spark的包里<br>部署在tomcat上</p>
-<p>####com.szkingdom.commonanalysis.daq####<br>数据采集，从XP里取数据，发送到Kafka并写日志到本地。Fabric注入<br>部署在tomcat上</p>
-<p>####com.szkingdom.commonanalysis.service####<br>查询统计接口，用户定义统计。前端调用。<br>部署在tomcat上</p>
-<p>####com.szkingdom.commonanalysis.spark####<br>scala计算</p>
-<p>####com.szkingdom.hdfs.upload####<br>上传hdfs。</p>
-<p>####com.szkingdom.kafka####<br>封装kafka操作</p>
-<p>1，Kafka存10分钟或者一天的消息，去除本地存储消息map</p>
-<p>2，超时判断为线程Sleep多久而定的。</p>
-<p>3，主要是考虑延时才放内存</p>
-<p>####com.szkingdom.report.plugin####<br>报表相关<br>前端有调用</p>
-<p>####com.szkingdom.commonanalysis.spark####<br>spark操作（scala写成）</p>
-<p>####kms_web####<br>前端页面的代码ROOT目录</p>
-
-          
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/04/25/Zookeeper+Kafka部署/" itemprop="url">
-                  Untitled
+                  Unbenannt
                 </a>
               
             
@@ -790,7 +679,7 @@ filter里实现
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-04-25T15:07:49+08:00" content="2016-04-25">
               2016-04-25
             </time>
@@ -820,9 +709,8 @@ filter里实现
       
         
           
-            <p>title:Eclipse使用<br>date:2016-4-14<br>author:Alaric Liu<br>tags:开发工具使用</p>
-<p>#zookeeper + kafka配置#</p>
-<p>##配置ssh免密##<br>转自<br><a href="http://blog.csdn.net/leexide/article/details/17252369" target="_blank" rel="external">http://blog.csdn.net/leexide/article/details/17252369</a><br>Linux下修改主机名的完整步骤如下：<br>第一步：<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片</p>
+            <p>title:Eclipse使用<br>date:2016-4-14<br>author:Alaric Liu</p>
+<h2 id="tags-开发工具使用"><a href="#tags-开发工具使用" class="headerlink" title="tags:开发工具使用"></a>tags:开发工具使用</h2><h1 id="zookeeper-kafka配置"><a href="#zookeeper-kafka配置" class="headerlink" title="zookeeper + kafka配置"></a>zookeeper + kafka配置</h1><h2 id="配置ssh免密"><a href="#配置ssh免密" class="headerlink" title="配置ssh免密"></a>配置ssh免密</h2><p>转自<br><a href="http://blog.csdn.net/leexide/article/details/17252369" target="_blank" rel="external">http://blog.csdn.net/leexide/article/details/17252369</a><br>Linux下修改主机名的完整步骤如下：<br>第一步：<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片</p>
 <p>#hostname Server1<br>第二步：<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>修改/etc/sysconfig/network中的hostname<br>第三步：<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>修改/etc/hosts文件<br>四、无密码登录实现方式<br>1、用ssh-keygen创建公钥<br>（1）在服务器1上执行下面的命令：<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>[root@Server1 ~]# ssh-keygen -t rsa<br>Generating public/private rsa key pair.<br>Enter file in which to save the key(/root/.ssh/id_rsa):<br>Created directory ‘/root/.ssh’.<br>Enter passphrase (empty for no passphrase):<br>Enter same passphrase again:<br>Your identification has been saved in/root/.ssh/id_rsa.<br>Your public key has been saved in/root/.ssh/id_rsa.pub.<br>The key fingerprint is:<br>7b:aa:08:a0:99:fc:d9:cc:d8:2e:4b:1a:c0:6b:da:e4root@Server1<br>The key’s randomart image is:<br>+–[ RSA 2048]—-+<br>| |<br>| |<br>| |<br>|. |<br>|o. S |<br>|++. . |<br>|+=o. . . |<br>|o+=oB. o |<br>|..E==*… |<br>+—————–+<br>    输入后，会提示创建.ssh/id_rsa、id_rsa.pub的文件，其中第一个为密钥，第二个为公钥。过程中会要求输入密码，为了ssh访问过程无须密码，可以直接回车 。<br>（2）补充说明：<br>ssh-keygen:生成秘钥<br>其中：<br>  -t指定算法<br>  -f 指定生成秘钥路径<br>  -N 指定密码<br>2、查看钥匙<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>[root@Server1 ~]# ls -l .ssh<br>总用量 8<br>-rw——-. 1 root root 1675 12月 10 22:20 id_rsa<br>-rw-r–r–. 1 root root 394 12月 10 22:20 id_rsa.pub<br>   可以发现 ssh目录下的两枚钥匙。</p>
 <p>3.将公钥复制到被管理机器Server2和Server3下的.ssh目录下（先确保存在这个目录）<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>[root@server1 .ssh]# scp id_rsa.pubroot@192.168.1.3:~/.ssh/<br>The authenticity of host ‘192.168.1.3(192.168.1.3)’ can’t be established.<br>RSA key fingerprint is93:eb:f9:47:b1:f6:3f:b4:2e:21:c3:d5:ab:1d:ae:65.<br>Are you sure you want to continueconnecting (yes/no)? yes<br>Warning: Permanently added ‘192.168.1.3’(RSA) to the list of known hosts.<br>root@192.168.1.3’s password:<br>id_rsa.pub<br>[root@server1 .ssh]# scp id_rsa.pubroot@192.168.1.4:~/.ssh/authorized_keys<br>The authenticity of host ‘192.168.1.4(192.168.1.4)’ can’t be established.<br>RSA key fingerprint is93:eb:f9:47:b1:f6:3f:b4:2e:21:c3:d5:ab:1d:ae:65.<br>Are you sure you want to continueconnecting (yes/no)? yes<br>Warning: Permanently added ‘192.168.1.4’(RSA) to the list of known hosts.<br>root@192.168.1.4’s password:<br>id_rsa.pub<br>到Server2和Server3目录下执行下面的命令<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>cat id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys  </p>
 <p>4、设置文件和目录权限：<br>设置authorized_keys权限<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>$ chmod 600 authorized_keys<br>设置.ssh目录权限<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>$ chmod 700 -R .ssh<br>5、验证使用SSH IP地址的方式无密码访问<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>[root@server1 .ssh]# ssh 192.168.1.3<br>Last login: Tue Dec 10 22:34:02 2013<br>[root@Server2 ~]#<br>[root@Server2 ~]#<br>[root@Server2 ~]#<br>6、验证使用SSH 主机名的方式无密码访问<br>我们在Server1上将Server2和Server3的IP地址解析为主机名<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>[root@server1 .ssh]# cat /etc/hosts<br>192.168.1.2 Server1<br>192.168.1.3 Server2<br>192.168.1.4 Server3<br>我们试试下面这种ssh登录方式：<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>[root@server1 .ssh]# ssh Server3<br>The authenticity of host ‘server3(192.168.1.4)’ can’t be established.<br>RSA key fingerprint is93:eb:f9:47:b1:f6:3f:b4:2e:21:c3:d5:ab:1d:ae:65.<br>Are you sure you want to continueconnecting (yes/no)? yes<br>Warning: Permanently added ‘server3’ (RSA)to the list of known hosts.<br>Last login: Tue Dec 10 22:34:08 2013<br>五、注意：<br>1、文件和目录的权限千万别设置成chmod 777.这个权限太大了，不安全，数字签名也不支持。<br>2、生成的rsa/dsa签名的公钥是给对方机器使用的。这个公钥内容还要拷贝到authorized_keys<br>3、linux之间的访问直接 ssh 机器ip<br>4、某个机器生成自己的RSA或者DSA的数字签名，将公钥给目标机器，然后目标机器接收后设定相关权限（公钥和authorized_keys权限），这个目标机就能被生成数字签名的机器无密码访问了</p>
@@ -988,7 +876,7 @@ zkServer.sh start
               
                 
                 <a class="post-title-link" href="/2016/04/25/spark提交/" itemprop="url">
-                  Untitled
+                  Unbenannt
                 </a>
               
             
@@ -1000,7 +888,7 @@ zkServer.sh start
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-04-25T15:07:49+08:00" content="2016-04-25">
               2016-04-25
             </time>
@@ -1030,9 +918,8 @@ zkServer.sh start
       
         
           
-            <p>title:Eclipse使用<br>date:2016-4-19<br>author:Alaric Liu<br>tags:开发工具使用</p>
-<p>#spark提交#</p>
-<pre><code>./spark-submit --class com.szkingdom.commonanalysis.analysis.Analyser --master spark://192.168.43.131:7077 --jars /home/hadoop/jars/com.szkingdom.commonanalysis.spark.jar,/home/hadoop/jars/commons-dbcp2-2.1.1.jar,/home/hadoop/jars/commons-pool2-2.4.2.jar,/home/hadoop/jars/mysql-connector-java-5.1.36-bin.jar,/home/hadoop/jars/spark-streaming-kafka-assembly_2.10-1.4.0.jar /home/hadoop/jars/lates.jar 
+            <p>title:Eclipse使用<br>date:2016-4-19<br>author:Alaric Liu</p>
+<h2 id="tags-开发工具使用"><a href="#tags-开发工具使用" class="headerlink" title="tags:开发工具使用"></a>tags:开发工具使用</h2><h1 id="spark提交"><a href="#spark提交" class="headerlink" title="spark提交"></a>spark提交</h1><pre><code>./spark-submit --class com.szkingdom.commonanalysis.analysis.Analyser --master spark://192.168.43.131:7077 --jars /home/hadoop/jars/com.szkingdom.commonanalysis.spark.jar,/home/hadoop/jars/commons-dbcp2-2.1.1.jar,/home/hadoop/jars/commons-pool2-2.4.2.jar,/home/hadoop/jars/mysql-connector-java-5.1.36-bin.jar,/home/hadoop/jars/spark-streaming-kafka-assembly_2.10-1.4.0.jar /home/hadoop/jars/lates.jar 
 </code></pre><p><font color="red" size="3"><br>目前存在的问题<br></font><br><br><br>提交到master上时，导致slave的worker崩溃。<br></p>
 <pre><code>Exception in thread &quot;main&quot; java.util.concurrent.TimeoutException: Futures timed out after [10000 milliseconds]
 </code></pre><p>修改jar包中的core-site.xml 和 hdfs-site.xml.</p>
@@ -1094,7 +981,7 @@ conf.set(&quot;spark.executor.memory&quot;, &quot;4g&quot;) 计算资源没有4G
               
                 
                 <a class="post-title-link" href="/2016/04/25/eclipse/" itemprop="url">
-                  Untitled
+                  Unbenannt
                 </a>
               
             
@@ -1106,7 +993,7 @@ conf.set(&quot;spark.executor.memory&quot;, &quot;4g&quot;) 计算资源没有4G
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-04-25T15:07:49+08:00" content="2016-04-25">
               2016-04-25
             </time>
@@ -1266,7 +1153,7 @@ public void filter(ContainerRequestContext request) throws IOException {
               
                 
                 <a class="post-title-link" href="/2016/04/13/HDFS高可用部署/" itemprop="url">
-                  Untitled
+                  Unbenannt
                 </a>
               
             
@@ -1278,7 +1165,7 @@ public void filter(ContainerRequestContext request) throws IOException {
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-04-13T19:55:22+08:00" content="2016-04-13">
               2016-04-13
             </time>
@@ -1543,7 +1430,7 @@ hadoop-daemon.sh start datanode
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-04-13T19:14:12+08:00" content="2016-04-13">
               2016-04-13
             </time>
@@ -1646,7 +1533,7 @@ hadoop-daemon.sh start datanode
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-04-04T20:55:25+08:00" content="2016-04-04">
               2016-04-04
             </time>
@@ -1989,8 +1876,8 @@ System.out.println(l.get());
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">10</span>
-              <span class="site-state-item-name">posts</span>
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">Artikel</span>
             </a>
           </div>
 
@@ -1998,7 +1885,7 @@ System.out.println(l.get());
             <div class="site-state-item site-state-categories">
               
                 <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">categories</span>
+                <span class="site-state-item-name">Kategorien</span>
               
             </div>
           
@@ -2007,7 +1894,7 @@ System.out.println(l.get());
             <div class="site-state-item site-state-tags">
               <a href="/tags">
                 <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">tags</span>
+                <span class="site-state-item-name">Tags</span>
               </a>
             </div>
           
@@ -2053,7 +1940,7 @@ System.out.println(l.get());
 </div>
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+  Erstellt mit  <a class="theme-link" href="http://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">

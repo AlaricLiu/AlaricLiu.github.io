@@ -80,22 +80,19 @@
 
 
 
-<meta name="description" content="title:Eclipse使用date:2016-4-14author:Alaric Liutags:开发工具使用
-#zookeeper + kafka配置#
-##配置ssh免密##转自http://blog.csdn.net/leexide/article/details/17252369Linux下修改主机名的完整步骤如下：第一步：[plain] view plain copy print?在">
+<meta name="description" content="title:Eclipse使用date:2016-4-14author:Alaric Liu
+tags:开发工具使用zookeeper + kafka配置配置ssh免密转自http://blog.csdn.net/leexide/article/details/17252369Linux下修改主机名的完整步骤如下：第一步：[plain] view plain copy print?在CODE上查看">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Alaric Study Notes">
 <meta property="og:url" content="http://yoursite.com/2016/04/25/Zookeeper+Kafka部署/index.html">
 <meta property="og:site_name" content="Alaric Study Notes">
-<meta property="og:description" content="title:Eclipse使用date:2016-4-14author:Alaric Liutags:开发工具使用
-#zookeeper + kafka配置#
-##配置ssh免密##转自http://blog.csdn.net/leexide/article/details/17252369Linux下修改主机名的完整步骤如下：第一步：[plain] view plain copy print?在">
-<meta property="og:updated_time" content="2016-04-19T02:43:52.837Z">
+<meta property="og:description" content="title:Eclipse使用date:2016-4-14author:Alaric Liu
+tags:开发工具使用zookeeper + kafka配置配置ssh免密转自http://blog.csdn.net/leexide/article/details/17252369Linux下修改主机名的完整步骤如下：第一步：[plain] view plain copy print?在CODE上查看">
+<meta property="og:updated_time" content="2016-04-27T10:03:10.658Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Alaric Study Notes">
-<meta name="twitter:description" content="title:Eclipse使用date:2016-4-14author:Alaric Liutags:开发工具使用
-#zookeeper + kafka配置#
-##配置ssh免密##转自http://blog.csdn.net/leexide/article/details/17252369Linux下修改主机名的完整步骤如下：第一步：[plain] view plain copy print?在">
+<meta name="twitter:description" content="title:Eclipse使用date:2016-4-14author:Alaric Liu
+tags:开发工具使用zookeeper + kafka配置配置ssh免密转自http://blog.csdn.net/leexide/article/details/17252369Linux下修改主机名的完整步骤如下：第一步：[plain] view plain copy print?在CODE上查看">
 
 
 
@@ -171,7 +168,7 @@
             
               <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -181,7 +178,7 @@
             
               <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -244,7 +241,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-04-25T15:07:49+08:00" content="2016-04-25">
               2016-04-25
             </time>
@@ -272,9 +269,8 @@
       
 
       
-        <p>title:Eclipse使用<br>date:2016-4-14<br>author:Alaric Liu<br>tags:开发工具使用</p>
-<p>#zookeeper + kafka配置#</p>
-<p>##配置ssh免密##<br>转自<br><a href="http://blog.csdn.net/leexide/article/details/17252369" target="_blank" rel="external">http://blog.csdn.net/leexide/article/details/17252369</a><br>Linux下修改主机名的完整步骤如下：<br>第一步：<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片</p>
+        <p>title:Eclipse使用<br>date:2016-4-14<br>author:Alaric Liu</p>
+<h2 id="tags-开发工具使用"><a href="#tags-开发工具使用" class="headerlink" title="tags:开发工具使用"></a>tags:开发工具使用</h2><h1 id="zookeeper-kafka配置"><a href="#zookeeper-kafka配置" class="headerlink" title="zookeeper + kafka配置"></a>zookeeper + kafka配置</h1><h2 id="配置ssh免密"><a href="#配置ssh免密" class="headerlink" title="配置ssh免密"></a>配置ssh免密</h2><p>转自<br><a href="http://blog.csdn.net/leexide/article/details/17252369" target="_blank" rel="external">http://blog.csdn.net/leexide/article/details/17252369</a><br>Linux下修改主机名的完整步骤如下：<br>第一步：<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片</p>
 <p>#hostname Server1<br>第二步：<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>修改/etc/sysconfig/network中的hostname<br>第三步：<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>修改/etc/hosts文件<br>四、无密码登录实现方式<br>1、用ssh-keygen创建公钥<br>（1）在服务器1上执行下面的命令：<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>[root@Server1 ~]# ssh-keygen -t rsa<br>Generating public/private rsa key pair.<br>Enter file in which to save the key(/root/.ssh/id_rsa):<br>Created directory ‘/root/.ssh’.<br>Enter passphrase (empty for no passphrase):<br>Enter same passphrase again:<br>Your identification has been saved in/root/.ssh/id_rsa.<br>Your public key has been saved in/root/.ssh/id_rsa.pub.<br>The key fingerprint is:<br>7b:aa:08:a0:99:fc:d9:cc:d8:2e:4b:1a:c0:6b:da:e4root@Server1<br>The key’s randomart image is:<br>+–[ RSA 2048]—-+<br>| |<br>| |<br>| |<br>|. |<br>|o. S |<br>|++. . |<br>|+=o. . . |<br>|o+=oB. o |<br>|..E==*… |<br>+—————–+<br>    输入后，会提示创建.ssh/id_rsa、id_rsa.pub的文件，其中第一个为密钥，第二个为公钥。过程中会要求输入密码，为了ssh访问过程无须密码，可以直接回车 。<br>（2）补充说明：<br>ssh-keygen:生成秘钥<br>其中：<br>  -t指定算法<br>  -f 指定生成秘钥路径<br>  -N 指定密码<br>2、查看钥匙<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>[root@Server1 ~]# ls -l .ssh<br>总用量 8<br>-rw——-. 1 root root 1675 12月 10 22:20 id_rsa<br>-rw-r–r–. 1 root root 394 12月 10 22:20 id_rsa.pub<br>   可以发现 ssh目录下的两枚钥匙。</p>
 <p>3.将公钥复制到被管理机器Server2和Server3下的.ssh目录下（先确保存在这个目录）<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>[root@server1 .ssh]# scp id_rsa.pubroot@192.168.1.3:~/.ssh/<br>The authenticity of host ‘192.168.1.3(192.168.1.3)’ can’t be established.<br>RSA key fingerprint is93:eb:f9:47:b1:f6:3f:b4:2e:21:c3:d5:ab:1d:ae:65.<br>Are you sure you want to continueconnecting (yes/no)? yes<br>Warning: Permanently added ‘192.168.1.3’(RSA) to the list of known hosts.<br>root@192.168.1.3’s password:<br>id_rsa.pub<br>[root@server1 .ssh]# scp id_rsa.pubroot@192.168.1.4:~/.ssh/authorized_keys<br>The authenticity of host ‘192.168.1.4(192.168.1.4)’ can’t be established.<br>RSA key fingerprint is93:eb:f9:47:b1:f6:3f:b4:2e:21:c3:d5:ab:1d:ae:65.<br>Are you sure you want to continueconnecting (yes/no)? yes<br>Warning: Permanently added ‘192.168.1.4’(RSA) to the list of known hosts.<br>root@192.168.1.4’s password:<br>id_rsa.pub<br>到Server2和Server3目录下执行下面的命令<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>cat id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys  </p>
 <p>4、设置文件和目录权限：<br>设置authorized_keys权限<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>$ chmod 600 authorized_keys<br>设置.ssh目录权限<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>$ chmod 700 -R .ssh<br>5、验证使用SSH IP地址的方式无密码访问<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>[root@server1 .ssh]# ssh 192.168.1.3<br>Last login: Tue Dec 10 22:34:02 2013<br>[root@Server2 ~]#<br>[root@Server2 ~]#<br>[root@Server2 ~]#<br>6、验证使用SSH 主机名的方式无密码访问<br>我们在Server1上将Server2和Server3的IP地址解析为主机名<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>[root@server1 .ssh]# cat /etc/hosts<br>192.168.1.2 Server1<br>192.168.1.3 Server2<br>192.168.1.4 Server3<br>我们试试下面这种ssh登录方式：<br>[plain] view plain copy print?在CODE上查看代码片派生到我的代码片<br>[root@server1 .ssh]# ssh Server3<br>The authenticity of host ‘server3(192.168.1.4)’ can’t be established.<br>RSA key fingerprint is93:eb:f9:47:b1:f6:3f:b4:2e:21:c3:d5:ab:1d:ae:65.<br>Are you sure you want to continueconnecting (yes/no)? yes<br>Warning: Permanently added ‘server3’ (RSA)to the list of known hosts.<br>Last login: Tue Dec 10 22:34:08 2013<br>五、注意：<br>1、文件和目录的权限千万别设置成chmod 777.这个权限太大了，不安全，数字签名也不支持。<br>2、生成的rsa/dsa签名的公钥是给对方机器使用的。这个公钥内容还要拷贝到authorized_keys<br>3、linux之间的访问直接 ssh 机器ip<br>4、某个机器生成自己的RSA或者DSA的数字签名，将公钥给目标机器，然后目标机器接收后设定相关权限（公钥和authorized_keys权限），这个目标机就能被生成数字签名的机器无密码访问了</p>
@@ -421,7 +417,7 @@ zkServer.sh start
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/04/25/包用途/" rel="prev" title="">
+              <a href="/2016/04/25/交接文档/" rel="prev" title="">
                  <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -472,10 +468,10 @@ zkServer.sh start
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -491,8 +487,8 @@ zkServer.sh start
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">10</span>
-              <span class="site-state-item-name">posts</span>
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">Artikel</span>
             </a>
           </div>
 
@@ -500,7 +496,7 @@ zkServer.sh start
             <div class="site-state-item site-state-categories">
               
                 <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">categories</span>
+                <span class="site-state-item-name">Kategorien</span>
               
             </div>
           
@@ -509,7 +505,7 @@ zkServer.sh start
             <div class="site-state-item site-state-tags">
               <a href="/tags">
                 <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">tags</span>
+                <span class="site-state-item-name">Tags</span>
               </a>
             </div>
           
@@ -539,7 +535,7 @@ zkServer.sh start
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-配置hdfs-site-xml-启动自动切换"><span class="nav-number">1.</span> <span class="nav-text">2.配置hdfs-site.xml, 启动自动切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-配置core-site-xml-指定zookeeper"><span class="nav-number">2.</span> <span class="nav-text">3.配置core-site.xml, 指定zookeeper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-启动并初始化ZooKeeper"><span class="nav-number">3.</span> <span class="nav-text">4. 启动并初始化ZooKeeper</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tags-开发工具使用"><span class="nav-number">1.</span> <span class="nav-text">tags:开发工具使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#zookeeper-kafka配置"><span class="nav-number"></span> <span class="nav-text">zookeeper + kafka配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置ssh免密"><span class="nav-number">1.</span> <span class="nav-text">配置ssh免密</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-配置hdfs-site-xml-启动自动切换"><span class="nav-number">1.1.</span> <span class="nav-text">2.配置hdfs-site.xml, 启动自动切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-配置core-site-xml-指定zookeeper"><span class="nav-number">1.2.</span> <span class="nav-text">3.配置core-site.xml, 指定zookeeper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-启动并初始化ZooKeeper"><span class="nav-number">1.3.</span> <span class="nav-text">4. 启动并初始化ZooKeeper</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -566,7 +562,7 @@ zkServer.sh start
 </div>
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+  Erstellt mit  <a class="theme-link" href="http://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
