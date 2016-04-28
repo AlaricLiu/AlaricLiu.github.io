@@ -64,7 +64,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="java," />
+  <meta name="keywords" content="hdfs," />
 
 
 
@@ -80,16 +80,16 @@
 
 
 
-<meta name="description" content="交接文档">
+<meta name="description" content="介绍">
 <meta property="og:type" content="article">
-<meta property="og:title" content="交接文档">
-<meta property="og:url" content="http://yoursite.com/2016/04/27/交接文档/index.html">
+<meta property="og:title" content="hexo入门">
+<meta property="og:url" content="http://yoursite.com/2016/04/27/hexo入门/index.html">
 <meta property="og:site_name" content="Alaric Study Notes">
-<meta property="og:description" content="交接文档">
-<meta property="og:updated_time" content="2016-04-27T10:11:02.174Z">
+<meta property="og:description" content="介绍">
+<meta property="og:updated_time" content="2016-04-28T03:14:20.662Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="交接文档">
-<meta name="twitter:description" content="交接文档">
+<meta name="twitter:title" content="hexo入门">
+<meta name="twitter:description" content="介绍">
 
 
 
@@ -107,7 +107,7 @@
   };
 </script>
 
-  <title> 交接文档 | Alaric Study Notes </title>
+  <title> hexo入门 | Alaric Study Notes </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
@@ -227,7 +227,7 @@
             
             
               
-                交接文档
+                hexo入门
               
             
           </h1>
@@ -253,8 +253,8 @@
               <span class="post-meta-item-text">in</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
+                  <a href="/categories/default/" itemprop="url" rel="index">
+                    <span itemprop="name">default</span>
                   </a>
                 </span>
 
@@ -285,41 +285,17 @@
       
 
       
-        <h2 id="环境部署"><a href="#环境部署" class="headerlink" title="环境部署"></a>环境部署</h2><h3 id="部署相关文档"><a href="#部署相关文档" class="headerlink" title="部署相关文档"></a>部署相关文档</h3><ul>
-<li>运营管理平台大数据架构部署说明</li>
-<li>HDFS高可用部署.md</li>
-<li>Kafka部署</li>
-</ul>
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>当前的部署有些版本兼容问题, 建议调整某些工具的版本以避免谜之错误. 比如当前的spark版本为1.4.0, 则应该使用scala版本为2.10.x. 具体的版本兼容信息可参考spark, kafka的官方网站.</p>
-<p>建议升级软件版本获得更高的性能, 比如可以将spark版本升级为1.6.1. </p>
-<h2 id="代码相关"><a href="#代码相关" class="headerlink" title="代码相关"></a>代码相关</h2><h3 id="各项目功能概述"><a href="#各项目功能概述" class="headerlink" title="各项目功能概述"></a>各项目功能概述</h3><p><strong>Scala项目</strong></p>
-<ul>
-<li><code>com.szkingdom.commonanalysis.spark</code> Scala项目, spark调用都在其中. </li>
-</ul>
-<p><strong>Java项目</strong></p>
-<ul>
-<li><code>com.szkingdom.commonanalysis</code> 调用上述Scala项目的Jar包进行计算. 需要将此项目生成的Jar包提交到<strong>集群</strong>中. </li>
-<li><code>com.szkingdom.commonanalysis.daq</code> 负责采集XP数据, 并发送给Kafka/写日志到本地文件.</li>
-<li><code>com.szkingdom.commonanalysis.service</code> 主要负责处理前端的请求, 比如查询统计结果等.</li>
-<li><code>com.szkingdom.hdfs.upload</code> 主要负责将日志文件增量复制到HDFS. </li>
-<li><code>com.szkingdom.kafka</code> 封装了一些Kafka的API, 同时也负责从Kafka中采集结果到内存中维护的集合中.</li>
-<li><code>com.amazing.rs</code> 登录模块, 权限控制的相关代码</li>
-<li><code>com.kingdom.cloud.manage</code> 此工程来自之前的项目, 本项目中复用了一些如数据字典访问的服务. </li>
-</ul>
-<p>Java项目中, 除第一个外, 都是Web项目, 需要部署到tomcat中.</p>
-<h2 id="程序部署"><a href="#程序部署" class="headerlink" title="程序部署"></a>程序部署</h2><ol>
-<li>通过<code>submit.sh</code>(内部使用<code>spark-submit</code>)提交<code>com.szkingdom.commonanalysis</code>到集群. </li>
-<li>其余Java Web项目部署到Tomcat(单个runtime目录为: <code>fabric/runtime/vm/deploy</code>). </li>
-<li>前端页面在工程<code>kms_web</code>中. 将其中的<code>WebRoot</code>更名为<code>kms</code>后放到<code>tomcat\webapps</code>下即可. </li>
-</ol>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a href="http://spark.apache.org/documentation.html" target="_blank" rel="external">Spark官方文档</a></li>
-<li><a href="http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/HdfsUserGuide.html" target="_blank" rel="external">HDFS官方文档</a></li>
-<li><a href="https://fabric3.atlassian.net/wiki/display/FABRIC/Documentation" target="_blank" rel="external">Fabric3官方文档</a></li>
-<li>Learning Spark</li>
-<li>Understanding SCA</li>
-<li>RESTful Java with JAX-RS 2.0</li>
-</ul>
+        <h1 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h1><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+<p>##hexo 命令##<br>需要到Blog目录路径下去。</p>
+<p>##命令行设置代理##<br>    set http_proxy=<a href="http://your_proxy:your_port" target="_blank" rel="external">http://your_proxy:your_port</a><br>    set http_proxy=<a href="http://username:password@your_proxy:your_port" target="_blank" rel="external">http://username:password@your_proxy:your_port</a><br>    set https_proxy=<a href="https://your_proxy:your_port" target="_blank" rel="external">https://your_proxy:your_port</a><br>    set https_proxy=<a href="https://username:password@your_proxy:your_port" target="_blank" rel="external">https://username:password@your_proxy:your_port</a></p>
 
       
     </div>
@@ -340,7 +316,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag">#java</a>
+            <a href="/tags/hdfs/" rel="tag">#hdfs</a>
           
         </div>
       
@@ -349,16 +325,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/27/spark提交/" rel="next" title="spark提交的问题">
-                <i class="fa fa-chevron-left"></i> spark提交的问题
+              <a href="/2016/04/27/c++从入门到崩溃/" rel="next" title="C++从入门到崩溃">
+                <i class="fa fa-chevron-left"></i> C++从入门到崩溃
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/04/27/java并发/" rel="prev" title="Java并发Level 2 - Executor">
-                Java并发Level 2 - Executor <i class="fa fa-chevron-right"></i>
+              <a href="/2016/04/27/Zookeeper+Kafka部署/" rel="prev" title="zookeeper与kafka的部署">
+                zookeeper与kafka的部署 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -475,7 +451,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境部署"><span class="nav-number">1.</span> <span class="nav-text">环境部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#部署相关文档"><span class="nav-number">1.1.</span> <span class="nav-text">部署相关文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">1.2.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码相关"><span class="nav-number">2.</span> <span class="nav-text">代码相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#各项目功能概述"><span class="nav-number">2.1.</span> <span class="nav-text">各项目功能概述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序部署"><span class="nav-number">3.</span> <span class="nav-text">程序部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#hello-world"><span class="nav-number">1.</span> <span class="nav-text">hello world</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
